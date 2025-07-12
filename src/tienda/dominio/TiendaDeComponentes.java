@@ -1,5 +1,7 @@
 package tienda.dominio;
 
+import tienda.dominio.componentes.Componente;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
