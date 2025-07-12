@@ -4,9 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
+import tienda.exceptions.CapacidadSuperadaException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TiendaDeComponentesTest {
 
@@ -75,7 +75,7 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void agregarUnComponenteAlStock(){
+    public void agregarUnComponenteAlStock() throws CapacidadSuperadaException {
         Componente pruebaComponente = new Componente();
 
         Boolean componenteAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
@@ -83,7 +83,19 @@ public class TiendaDeComponentesTest {
         assertTrue(componenteAgregado);
     }
 
+    @Test
+    public void dadoQueSeIntentaAgregarMasComponentesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+        Componente pruebaComponente1 = new Componente();
+        Componente pruebaComponente2 = new Componente();
+        Componente pruebaComponente3 = new Componente();
 
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
+
+        Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3));
+
+        assertEquals("No se pudo agregar el componente. La capacidad actual de almacenamiento no es suficiente", exception.getMessage());
+    }
 
 }
 /*✅ 1. Gestión de componentes
