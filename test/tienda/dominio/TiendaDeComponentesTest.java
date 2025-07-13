@@ -4,7 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
+import tienda.dominio.enums.NombreProcesadores;
 import tienda.exceptions.CapacidadSuperadaException;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -95,6 +98,18 @@ public class TiendaDeComponentesTest {
         Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3));
 
         assertEquals("No se pudo agregar el componente. La capacidad actual de almacenamiento no es suficiente", exception.getMessage());
+    }
+
+    @Test
+    public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria(){
+        Componente pruebaProcesador = Procesador(NombreProcesadores.RYZEN_3_3200G);
+
+        List<Componente> listaDeProcesadores = this.tiendaDeComponentes.buscarComponentesPorCategoria("Procesador");
+        Integer procesadoresEsperados = 4;
+        Integer procesadoresObtenidos = listaDeProcesadores.size();
+
+        assertEquals(procesadoresEsperados, procesadoresObtenidos);
+
     }
 
 }
