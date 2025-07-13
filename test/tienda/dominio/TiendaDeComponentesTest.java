@@ -102,7 +102,7 @@ public class TiendaDeComponentesTest {
 
     @Test
     public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria(){
-        Componente pruebaProcesador = Procesador(NombreProcesadores.RYZEN_3_3200G);
+        Componente pruebaProcesador = new Procesador(NombreProcesadores.RYZEN_3_3200G);
 
         List<Componente> listaDeProcesadores = this.tiendaDeComponentes.buscarComponentesPorCategoria("Procesador");
         Integer procesadoresEsperados = 4;

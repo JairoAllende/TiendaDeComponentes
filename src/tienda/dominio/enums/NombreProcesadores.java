@@ -50,8 +50,4 @@ public enum NombreProcesadores {
     public Double precio(){
         return this.precio;
     }
-
-    public void setPrecio(Double precio){
-        this.precio = precio;
-    }
 }
