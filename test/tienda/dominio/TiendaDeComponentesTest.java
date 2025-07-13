@@ -29,7 +29,7 @@ public class TiendaDeComponentesTest {
     class CreacionDeComponentes{
         @Test
         public void queSePuedaCrearUnProcesador(){
-            Componente pruebaComponenteProcesador = new Procesador();
+            Componente pruebaComponenteProcesador = new Procesador(NombreProcesadores.RYZEN_3_3200G);
 
             assertNotNull(pruebaComponenteProcesador);
         }
@@ -78,15 +78,6 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void agregarUnComponenteAlStock() throws CapacidadSuperadaException {
-        Componente pruebaComponente = new Componente();
-
-        Boolean componenteAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
-
-        assertTrue(componenteAgregado);
-    }
-
-    @Test
     public void dadoQueSeIntentaAgregarMasComponentesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
         Componente pruebaComponente1 = new Componente();
         Componente pruebaComponente2 = new Componente();
@@ -101,8 +92,9 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria(){
+    public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria() throws CapacidadSuperadaException {
         Componente pruebaProcesador = new Procesador(NombreProcesadores.RYZEN_3_3200G);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaProcesador);
 
         List<Componente> listaDeProcesadores = this.tiendaDeComponentes.buscarComponentesPorCategoria("Procesador");
         Integer procesadoresEsperados = 4;

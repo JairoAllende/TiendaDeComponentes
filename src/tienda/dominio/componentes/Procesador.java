@@ -9,7 +9,6 @@ public class Procesador extends Componente {
     private final Integer HILOS;
     private final Double FRECUENCIA_BASE;
     private final Double FRECUENCIA_TURBO;
-    private Double precio;
 
     public Procesador(NombreProcesadores procesador) {
         super();
