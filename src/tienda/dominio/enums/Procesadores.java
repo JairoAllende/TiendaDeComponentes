@@ -1,6 +1,6 @@
 package tienda.dominio.enums;
 
-public enum NombreProcesadores {
+public enum Procesadores {
     RYZEN_3_3200G("AMD", "Ryzen 3 3200g", 4, 4, 3.6, 4.0, 85300d),
     RYZEN_5_5600G("AMD","Ryzen 5 5600g",6,12,3.9,4.4, 168500d),
     CORE_I3_12100f("INTEL","Core I5 12100F",4,8,3.3,4.3, 117450d),
@@ -14,7 +14,7 @@ public enum NombreProcesadores {
     private final Double FRECUENCIA_TURBO;
     private Double precio;
 
-    NombreProcesadores(String marca, String modelo, Integer nucleos, Integer hilos, Double frecuenciaBase, Double frecuenciaTurbo, Double precio) {
+    Procesadores(String marca, String modelo, Integer nucleos, Integer hilos, Double frecuenciaBase, Double frecuenciaTurbo, Double precio) {
         this.MARCA = marca;
         this.MODELO = modelo;
         this.NUCLEOS = nucleos;

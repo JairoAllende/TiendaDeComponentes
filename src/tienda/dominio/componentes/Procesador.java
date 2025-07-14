@@ -1,6 +1,6 @@
 package tienda.dominio.componentes;
 
-import tienda.dominio.enums.NombreProcesadores;
+import tienda.dominio.enums.Procesadores;
 
 public class Procesador extends Componente {
 
@@ -10,7 +10,7 @@ public class Procesador extends Componente {
     private final Double FRECUENCIA_BASE;
     private final Double FRECUENCIA_TURBO;
 
-    public Procesador(NombreProcesadores procesador) {
+    public Procesador(Procesadores procesador) {
         super();
         this.MARCA = procesador.getMARCA();
         this.MODELO = procesador.getMODELO();

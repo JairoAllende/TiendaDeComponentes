@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
-import tienda.dominio.enums.NombreProcesadores;
+import tienda.dominio.enums.Procesadores;
 import tienda.exceptions.CapacidadSuperadaException;
 
 import java.util.List;
@@ -14,10 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TiendaDeComponentesTest {
 
     private TiendaDeComponentes tiendaDeComponentes;
+    private Procesador ryzen33200g;
+    private Componente ryzen55600g;
+    private Componente corei512100f;
 
     @BeforeEach
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
+        this.ryzen33200g = new Procesador(Procesadores.RYZEN_3_3200G);
+        this.ryzen55600g = new Procesador(Procesadores.RYZEN_5_5600G);
+        this.corei512100f = new Procesador(Procesadores.CORE_I3_12100f);
     }
 
     @Test
@@ -29,7 +35,7 @@ public class TiendaDeComponentesTest {
     class CreacionDeComponentes{
         @Test
         public void queSePuedaCrearUnProcesador(){
-            Componente pruebaComponenteProcesador = new Procesador(NombreProcesadores.RYZEN_3_3200G);
+            Componente pruebaComponenteProcesador = new Procesador(Procesadores.RYZEN_3_3200G);
 
             assertNotNull(pruebaComponenteProcesador);
         }
@@ -79,7 +85,7 @@ public class TiendaDeComponentesTest {
 
     @Test
     public void dadoQueSeIntentaAgregarUnComponenteAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
-        Componente pruebaComponente = new Procesador(NombreProcesadores.CORE_I3_12100f);
+        Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
 
         Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
 
@@ -88,9 +94,9 @@ public class TiendaDeComponentesTest {
 
     @Test
     public void dadoQueSeIntentaAgregarMasComponentesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
-        Componente pruebaComponente1 = new Procesador(NombreProcesadores.RYZEN_3_3200G);
-        Componente pruebaComponente2 = new Procesador(NombreProcesadores.RYZEN_5_5600G);
-        Componente pruebaComponente3 = new Procesador(NombreProcesadores.CORE_I3_12100f);
+        Componente pruebaComponente1 = new Procesador(Procesadores.RYZEN_3_3200G);
+        Componente pruebaComponente2 = new Procesador(Procesadores.RYZEN_5_5600G);
+        Componente pruebaComponente3 = new Procesador(Procesadores.CORE_I3_12100f);
 
         this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
         this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
@@ -100,18 +106,19 @@ public class TiendaDeComponentesTest {
         assertEquals("No se pueden almacenar más procesadores. Se alcanzo el limite de almacenamiento", exception.getMessage());
     }
 
-   /* @Test
+   @Test
     public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria() throws CapacidadSuperadaException {
-        Componente pruebaProcesador = new Procesador(NombreProcesadores.RYZEN_3_3200G);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaProcesador);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen55600g);
 
         List<Componente> listaDeProcesadores = this.tiendaDeComponentes.buscarComponentesPorCategoria("Procesador");
-        Integer procesadoresEsperados = 4;
+        Integer procesadoresEsperados = 2;
         Integer procesadoresObtenidos = listaDeProcesadores.size();
 
         assertEquals(procesadoresEsperados, procesadoresObtenidos);
-
-    } */
+        assertTrue(listaDeProcesadores.contains(this.ryzen33200g));
+        assertTrue(listaDeProcesadores.contains(this.ryzen55600g));
+    }
 
 }
 
