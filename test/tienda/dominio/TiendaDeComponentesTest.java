@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
+import tienda.dominio.enums.Almacenamientos;
 import tienda.dominio.enums.Procesadores;
 import tienda.exceptions.CapacidadSuperadaException;
 
@@ -84,7 +85,16 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void dadoQueSeIntentaAgregarUnComponenteAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+    public void dadoQueSeIntentaAgregarUnAlmacenamientoAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+        Componente pruebaComponente = new Almacenamiento(Almacenamientos.CORE_I3_12100f);
+
+        Boolean almacenamientoAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+        assertTrue(almacenamientoAgregado);
+    }
+
+    @Test
+    public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
         Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
 
         Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
@@ -93,7 +103,7 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void dadoQueSeIntentaAgregarMasComponentesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+    public void dadoQueSeIntentaAgregarMasProcesadoresDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
         Componente pruebaComponente1 = new Procesador(Procesadores.RYZEN_3_3200G);
         Componente pruebaComponente2 = new Procesador(Procesadores.RYZEN_5_5600G);
         Componente pruebaComponente3 = new Procesador(Procesadores.CORE_I3_12100f);
@@ -103,7 +113,7 @@ public class TiendaDeComponentesTest {
 
         Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3));
 
-        assertEquals("No se pueden almacenar más procesadores. Se alcanzo el limite de almacenamiento", exception.getMessage());
+        assertEquals("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito", exception.getMessage());
     }
 
    @Test

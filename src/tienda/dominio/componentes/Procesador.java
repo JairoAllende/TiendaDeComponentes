@@ -17,7 +17,7 @@ public class Procesador extends Componente {
         this.HILOS = procesador.getHILOS();
         this.FRECUENCIA_BASE = procesador.getFRECUENCIA_BASE();
         this.FRECUENCIA_TURBO = procesador.getFRECUENCIA_TURBO();
-        this.precio = procesador.precio();
+        this.precio = procesador.getPRECIO();
     }
 
     public String getMARCA() {

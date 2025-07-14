@@ -12,15 +12,16 @@ public enum Procesadores {
     private final Integer HILOS;
     private final Double FRECUENCIA_BASE;
     private final Double FRECUENCIA_TURBO;
-    private Double precio;
+    private final Double PRECIO;
 
-    Procesadores(String marca, String modelo, Integer nucleos, Integer hilos, Double frecuenciaBase, Double frecuenciaTurbo, Double precio) {
+    Procesadores(String marca, String modelo, Integer nucleos, Integer hilos, Double frecuenciaBase, Double frecuenciaTurbo, Double PRECIO) {
         this.MARCA = marca;
         this.MODELO = modelo;
         this.NUCLEOS = nucleos;
         this.HILOS = hilos;
         this.FRECUENCIA_BASE = frecuenciaBase;
         this.FRECUENCIA_TURBO = frecuenciaTurbo;
+        this.PRECIO = PRECIO;
     }
 
     public String getMARCA() {
@@ -47,7 +48,7 @@ public enum Procesadores {
         return FRECUENCIA_TURBO;
     }
 
-    public Double precio(){
-        return this.precio;
+    public Double getPRECIO(){
+        return this.PRECIO;
     }
 }

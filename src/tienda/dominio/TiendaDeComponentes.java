@@ -15,7 +15,13 @@ public class TiendaDeComponentes {
     //-----------
 
     public TiendaDeComponentes(){
+        this.stock.put("Almacenamiento", new ArrayList<>());
+        this.stock.put("Gabinete", new ArrayList<>());
+        this.stock.put("MemoriaRam", new ArrayList<>());
+        this.stock.put("Motherboard", new ArrayList<>());
+        this.stock.put("PlacaDeVideo", new ArrayList<>());
         this.stock.put("Procesador", new ArrayList<>());
+        this.stock.put("Refrigeracion", new ArrayList<>());
     }
 
     public Boolean agregarUnComponenteAlStock(Componente componente) throws CapacidadSuperadaException {
@@ -27,7 +33,7 @@ public class TiendaDeComponentes {
                     this.capacidadActualDeProcesadores--;
                     return this.stock.get(componente.getCategoria()).add(componente);
                 }else {
-                    throw new CapacidadSuperadaException("No se pueden almacenar más procesadores. Se alcanzo el limite de almacenamiento");
+                    throw new CapacidadSuperadaException("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito");
                 }
 
         }
@@ -36,7 +42,8 @@ public class TiendaDeComponentes {
     }
 
     //Cambiar después el parametro con un enum?
-    public List<Componente> buscarComponentesPorCategoria(String procesador) {
-        return this.stock.get(procesador);
+    public List<Componente> buscarComponentesPorCategoria(String componente) {
+
+        return this.stock.get(componente);
     }
 }
