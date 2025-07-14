@@ -64,7 +64,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnAlmacenamiento(){
-            Componente pruebaComponenteAlmacenamiento = new Almacenamiento();
+            Componente pruebaComponenteAlmacenamiento = new Almacenamiento(esExterno, tipo, marca, capacidadGigas, velocidadLectura, velocidadEscritura, tipoDeConexion);
 
             assertNotNull(pruebaComponenteAlmacenamiento);
         }
@@ -86,7 +86,7 @@ public class TiendaDeComponentesTest {
 
     @Test
     public void dadoQueSeIntentaAgregarUnAlmacenamientoAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
-        Componente pruebaComponente = new Almacenamiento(Almacenamientos.CORE_I3_12100f);
+        Componente pruebaComponente = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_1TB_ADATA);
 
         Boolean almacenamientoAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
 

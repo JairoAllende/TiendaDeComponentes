@@ -40,7 +40,8 @@ public class Procesador extends Componente {
         return FRECUENCIA_TURBO;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    @Override
+    public void esAbstracto() {
+
     }
 }
