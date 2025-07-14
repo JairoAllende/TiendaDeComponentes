@@ -12,6 +12,7 @@ import java.util.TreeMap;
 public class TiendaDeComponentes {
     private final Map<String, List<Componente>> stock = new TreeMap<>();
     private Integer capacidadActualDeProcesadores = 2;
+    private Integer capacidadActualDeAlmacenamientos = 5;
     //-----------
 
     public TiendaDeComponentes(){
@@ -26,7 +27,6 @@ public class TiendaDeComponentes {
 
     public Boolean agregarUnComponenteAlStock(Componente componente) throws CapacidadSuperadaException {
 
-
         switch (componente.getCategoria()){
             case "Procesador":
                 if(this.capacidadActualDeProcesadores >= 1){
@@ -35,7 +35,13 @@ public class TiendaDeComponentes {
                 }else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito");
                 }
-
+            case "Almacenamiento":
+                if (this.capacidadActualDeAlmacenamientos >= 1){
+                    this.capacidadActualDeAlmacenamientos--;
+                    return  this.stock.get(componente.getCategoria()).add(componente);
+                }else{
+                    throw new CapacidadSuperadaException("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito");
+                }
         }
 
         return null;

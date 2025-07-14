@@ -64,7 +64,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnAlmacenamiento(){
-            Componente pruebaComponenteAlmacenamiento = new Almacenamiento(esExterno, tipo, marca, capacidadGigas, velocidadLectura, velocidadEscritura, tipoDeConexion);
+            Componente pruebaComponenteAlmacenamiento = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE);
 
             assertNotNull(pruebaComponenteAlmacenamiento);
         }

@@ -4,7 +4,7 @@ public class Motherboard extends Componente {
 
 
     @Override
-    public void setPrecio(Double precio) {
+    public void esAbstracto() {
 
     }
 }
