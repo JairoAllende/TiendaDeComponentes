@@ -15,15 +15,24 @@ public class TiendaDeComponentes {
     //-----------
 
     public TiendaDeComponentes(){
-        this.stock.put("Componente", new ArrayList<>());
+        this.stock.put("Procesador", new ArrayList<>());
     }
 
     public Boolean agregarUnComponenteAlStock(Componente componente) throws CapacidadSuperadaException {
 
 
-        switch (componente instanceof Procesador){
+        switch (componente.getCategoria()){
+            case "Procesador":
+                if(this.capacidadActualDeProcesadores >= 1){
+                    this.capacidadActualDeProcesadores--;
+                    return this.stock.get(componente.getCategoria()).add(componente);
+                }else {
+                    throw new CapacidadSuperadaException("No se pueden almacenar más procesadores. Se alcanzo el limite de almacenamiento");
+                }
 
         }
+
+        return null;
     }
 
     //Cambiar después el parametro con un enum?

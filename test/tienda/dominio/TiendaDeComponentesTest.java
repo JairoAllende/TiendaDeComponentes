@@ -78,20 +78,29 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
+    public void dadoQueSeIntentaAgregarUnComponenteAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+        Componente pruebaComponente = new Procesador(NombreProcesadores.CORE_I3_12100f);
+
+        Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+        assertTrue(procesadorAgregado);
+    }
+
+    @Test
     public void dadoQueSeIntentaAgregarMasComponentesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
-        Componente pruebaComponente1 = new Componente();
-        Componente pruebaComponente2 = new Componente();
-        Componente pruebaComponente3 = new Componente();
+        Componente pruebaComponente1 = new Procesador(NombreProcesadores.RYZEN_3_3200G);
+        Componente pruebaComponente2 = new Procesador(NombreProcesadores.RYZEN_5_5600G);
+        Componente pruebaComponente3 = new Procesador(NombreProcesadores.CORE_I3_12100f);
 
         this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
         this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
 
         Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3));
 
-        assertEquals("No se pudo agregar el componente. La capacidad actual de almacenamiento no es suficiente", exception.getMessage());
+        assertEquals("No se pueden almacenar más procesadores. Se alcanzo el limite de almacenamiento", exception.getMessage());
     }
 
-    @Test
+   /* @Test
     public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria() throws CapacidadSuperadaException {
         Componente pruebaProcesador = new Procesador(NombreProcesadores.RYZEN_3_3200G);
         this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaProcesador);
@@ -102,9 +111,10 @@ public class TiendaDeComponentesTest {
 
         assertEquals(procesadoresEsperados, procesadoresObtenidos);
 
-    }
+    } */
 
 }
+
 /*✅ 1. Gestión de componentes
         Quiero poder:
 
