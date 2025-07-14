@@ -103,6 +103,26 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
+    public void dadoQueSeIntentaAgregarMasAlmacenamientosDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+        Componente pruebaComponente1 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE);
+        Componente pruebaComponente2 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_1TB_WESTERNDIGITAL);
+        Componente pruebaComponente3 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_1TB_ADATA);
+        Componente pruebaComponente4 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_2TB_ADATA);
+        Componente pruebaComponente5 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
+        Componente pruebaComponente6 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
+
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente5);
+
+        Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente6));
+
+        assertEquals("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito", exception.getMessage());
+    }
+
+    @Test
     public void dadoQueSeIntentaAgregarMasProcesadoresDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
         Componente pruebaComponente1 = new Procesador(Procesadores.RYZEN_3_3200G);
         Componente pruebaComponente2 = new Procesador(Procesadores.RYZEN_5_5600G);
