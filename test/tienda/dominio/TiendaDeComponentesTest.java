@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
 import tienda.dominio.enums.Almacenamientos;
+import tienda.dominio.enums.Gabinetes;
 import tienda.dominio.enums.Procesadores;
 import tienda.exceptions.CapacidadSuperadaException;
 
@@ -94,15 +95,6 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
-        Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
-
-        Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
-
-        assertTrue(procesadorAgregado);
-    }
-
-    @Test
     public void dadoQueSeIntentaAgregarMasAlmacenamientosDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
         Componente pruebaComponente1 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE);
         Componente pruebaComponente2 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_1TB_WESTERNDIGITAL);
@@ -120,6 +112,24 @@ public class TiendaDeComponentesTest {
         Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente6));
 
         assertEquals("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito", exception.getMessage());
+    }
+
+    @Test
+    public void dadoQueSeIntentaAgregarUnGabineteAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+        Componente pruebaComponente = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
+
+        Boolean almacenamientoAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+        assertTrue(almacenamientoAgregado);
+    }
+
+    @Test
+    public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+        Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
+
+        Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+        assertTrue(procesadorAgregado);
     }
 
     @Test
