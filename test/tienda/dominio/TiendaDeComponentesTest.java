@@ -8,6 +8,7 @@ import tienda.dominio.enums.Almacenamientos;
 import tienda.dominio.enums.Gabinetes;
 import tienda.dominio.enums.Procesadores;
 import tienda.exceptions.CapacidadSuperadaException;
+import tienda.servicio.TiendaDeComponentes;
 
 import java.util.List;
 
@@ -189,6 +190,15 @@ public class TiendaDeComponentesTest {
         assertTrue(listaDeProcesadores.contains(this.ryzen55600g));
     }
 
+    @Test
+    public void dadoQueSeDeseaEliminarUnComponenteDelStockCuandoIngresoUnTipoDeComponenteYUnIdValidoEntoncesObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen55600g);
+
+        Boolean componenteEliminado = this.tiendaDeComponentes.eliminarComponenteDeStock("Procesador", 1);
+
+        assertTrue(componenteEliminado);
+    }
 
 
 }

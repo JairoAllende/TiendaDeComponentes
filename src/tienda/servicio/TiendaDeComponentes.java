@@ -1,4 +1,4 @@
-package tienda.dominio;
+package tienda.servicio;
 
 import tienda.dominio.componentes.Componente;
 import tienda.dominio.componentes.Procesador;
@@ -61,5 +61,17 @@ public class TiendaDeComponentes {
     public List<Componente> buscarComponentesPorCategoria(String componente) {
 
         return this.stock.get(componente);
+    }
+
+    public Boolean eliminarComponenteDeStock(String componente, Integer idComponente) {
+
+        if(this.stock.get(componente) != null){
+            //Buscar sobre Predicate
+            //Buscar sobre removeIf
+                                             //Elimina de la coleccion si( variableAuxiliar -> variableAuxilirar cumple esta condicion)
+            return this.stock.get(componente).removeIf(componenteDelStock -> componenteDelStock.getId().equals(idComponente));
+        }else{
+            return false;
+        }
     }
 }
