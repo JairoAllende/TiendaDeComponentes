@@ -1,5 +1,6 @@
 package tienda.dominio;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,6 @@ public class TiendaDeComponentesTest {
     private Procesador ryzen33200g;
     private Componente ryzen55600g;
 
-
     @BeforeEach
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
@@ -32,6 +32,7 @@ public class TiendaDeComponentesTest {
         TiendaDeComponentes pruebaTiendaDeComponentes = new TiendaDeComponentes();
         assertNotNull(pruebaTiendaDeComponentes);
     }
+
     @Nested
     class CreacionDeComponentes{
         @Test
@@ -110,7 +111,7 @@ public class TiendaDeComponentesTest {
 
         Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente6));
 
-        assertEquals("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito", exception.getMessage());
+        assertEquals("No se pueden almacenar más unidades de almacenamiento. Se alcanzo el limite en el deposito", exception.getMessage());
     }
 
     @Test
@@ -121,6 +122,22 @@ public class TiendaDeComponentesTest {
 
         assertTrue(almacenamientoAgregado);
     }
+
+    @Test
+    public void dadoQueSeIntentaAgregarMasGabinetesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+        Componente pruebaComponente1 = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
+        Componente pruebaComponente2 = new Gabinete(Gabinetes.DEEPCOOL_MACUBE_110);
+        Componente pruebaComponente3 = new Gabinete(Gabinetes.DEEPCOOL_CH260);
+        Componente pruebaComponente4 = new Gabinete(Gabinetes.DEEPCOOL_CH260);
+
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3);
+
+        Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4));
+        assertEquals("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito", exception.getMessage());
+    }
+    //---------
 
     @Test
     public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
@@ -142,7 +159,7 @@ public class TiendaDeComponentesTest {
 
         Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3));
 
-        assertEquals("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito", exception.getMessage());
+        assertEquals("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito", exception.getMessage());
     }
 
    @Test

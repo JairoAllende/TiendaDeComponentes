@@ -13,7 +13,7 @@ public class TiendaDeComponentes {
     private final Map<String, List<Componente>> stock = new TreeMap<>();
     private Integer capacidadActualDeProcesadores = 2;
     private Integer capacidadActualDeAlmacenamientos = 5;
-    private Integer capacidadActualDeGabinetes = 5;
+    private Integer capacidadActualDeGabinetes = 3;
     //-----------
 
     public TiendaDeComponentes(){
@@ -34,19 +34,21 @@ public class TiendaDeComponentes {
                     this.capacidadActualDeProcesadores--;
                     return this.stock.get(componente.getCategoria()).add(componente);
                 }else {
-                    throw new CapacidadSuperadaException("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito");
+                    throw new CapacidadSuperadaException("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito");
                 }
             case "Almacenamiento":
                 if (this.capacidadActualDeAlmacenamientos >= 1){
                     this.capacidadActualDeAlmacenamientos--;
                     return  this.stock.get(componente.getCategoria()).add(componente);
                 }else{
-                    throw new CapacidadSuperadaException("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito");
+                    throw new CapacidadSuperadaException("No se pueden almacenar más unidades de almacenamiento. Se alcanzo el limite en el deposito");
                 }
             case "Gabinete":
                 if(this.capacidadActualDeGabinetes >= 1){
                     this.capacidadActualDeGabinetes--;
                     return  this.stock.get(componente.getCategoria()).add(componente);
+                }else {
+                    throw new CapacidadSuperadaException("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito");
                 }
             default:
                 return false;
