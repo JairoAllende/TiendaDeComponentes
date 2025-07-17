@@ -85,84 +85,95 @@ public class TiendaDeComponentesTest {
         }
     }
 
-    @Test
-    public void dadoQueSeIntentaAgregarUnAlmacenamientoAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
-        Componente pruebaComponente = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_1TB_ADATA);
+    @Nested
+    class AgregarComponentesAlStock{
+        private TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
 
-        Boolean almacenamientoAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+        @BeforeEach
+        public void init(){
+            this.tiendaDeComponentes = new TiendaDeComponentes();
+        }
 
-        assertTrue(almacenamientoAgregado);
+        @Test
+        public void dadoQueSeIntentaAgregarUnAlmacenamientoAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+            Componente pruebaComponente = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_1TB_ADATA);
+
+            Boolean almacenamientoAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+            assertTrue(almacenamientoAgregado);
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarMasAlmacenamientosDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+            Componente pruebaComponente1 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE);
+            Componente pruebaComponente2 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_1TB_WESTERNDIGITAL);
+            Componente pruebaComponente3 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_1TB_ADATA);
+            Componente pruebaComponente4 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_2TB_ADATA);
+            Componente pruebaComponente5 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
+            Componente pruebaComponente6 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
+
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente5);
+
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente6));
+
+            assertEquals("No se pueden almacenar más unidades de almacenamiento. Se alcanzo el limite en el deposito", exception.getMessage());
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarUnGabineteAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+            Componente pruebaComponente = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
+
+            Boolean almacenamientoAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+            assertTrue(almacenamientoAgregado);
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarMasGabinetesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+            Componente pruebaComponente1 = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
+            Componente pruebaComponente2 = new Gabinete(Gabinetes.DEEPCOOL_MACUBE_110);
+            Componente pruebaComponente3 = new Gabinete(Gabinetes.DEEPCOOL_CH260);
+            Componente pruebaComponente4 = new Gabinete(Gabinetes.DEEPCOOL_CH260);
+
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3);
+
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4));
+            assertEquals("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito", exception.getMessage());
+        }
+        //---------
+
+        @Test
+        public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+            Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
+
+            Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+            assertTrue(procesadorAgregado);
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarMasProcesadoresDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+            Componente pruebaComponente1 = new Procesador(Procesadores.RYZEN_3_3200G);
+            Componente pruebaComponente2 = new Procesador(Procesadores.RYZEN_5_5600G);
+            Componente pruebaComponente3 = new Procesador(Procesadores.CORE_I3_12100f);
+
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
+
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3));
+
+            assertEquals("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito", exception.getMessage());
+        }
     }
 
-    @Test
-    public void dadoQueSeIntentaAgregarMasAlmacenamientosDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
-        Componente pruebaComponente1 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE);
-        Componente pruebaComponente2 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_1TB_WESTERNDIGITAL);
-        Componente pruebaComponente3 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_1TB_ADATA);
-        Componente pruebaComponente4 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_2TB_ADATA);
-        Componente pruebaComponente5 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
-        Componente pruebaComponente6 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
-
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente5);
-
-        Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente6));
-
-        assertEquals("No se pueden almacenar más unidades de almacenamiento. Se alcanzo el limite en el deposito", exception.getMessage());
-    }
 
     @Test
-    public void dadoQueSeIntentaAgregarUnGabineteAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
-        Componente pruebaComponente = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
-
-        Boolean almacenamientoAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
-
-        assertTrue(almacenamientoAgregado);
-    }
-
-    @Test
-    public void dadoQueSeIntentaAgregarMasGabinetesDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
-        Componente pruebaComponente1 = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
-        Componente pruebaComponente2 = new Gabinete(Gabinetes.DEEPCOOL_MACUBE_110);
-        Componente pruebaComponente3 = new Gabinete(Gabinetes.DEEPCOOL_CH260);
-        Componente pruebaComponente4 = new Gabinete(Gabinetes.DEEPCOOL_CH260);
-
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3);
-
-        Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4));
-        assertEquals("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito", exception.getMessage());
-    }
-    //---------
-
-    @Test
-    public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
-        Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
-
-        Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
-
-        assertTrue(procesadorAgregado);
-    }
-
-    @Test
-    public void dadoQueSeIntentaAgregarMasProcesadoresDeLosSoportadosPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
-        Componente pruebaComponente1 = new Procesador(Procesadores.RYZEN_3_3200G);
-        Componente pruebaComponente2 = new Procesador(Procesadores.RYZEN_5_5600G);
-        Componente pruebaComponente3 = new Procesador(Procesadores.CORE_I3_12100f);
-
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
-        this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
-
-        Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3));
-
-        assertEquals("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito", exception.getMessage());
-    }
-
-   @Test
     public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria() throws CapacidadSuperadaException {
         this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
         this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen55600g);
