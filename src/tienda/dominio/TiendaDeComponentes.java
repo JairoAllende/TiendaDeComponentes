@@ -13,6 +13,7 @@ public class TiendaDeComponentes {
     private final Map<String, List<Componente>> stock = new TreeMap<>();
     private Integer capacidadActualDeProcesadores = 2;
     private Integer capacidadActualDeAlmacenamientos = 5;
+    private Integer capacidadActualDeGabinetes = 5;
     //-----------
 
     public TiendaDeComponentes(){
@@ -42,9 +43,16 @@ public class TiendaDeComponentes {
                 }else{
                     throw new CapacidadSuperadaException("No se pueden almacenar más componentes. Se alcanzo el limite en el deposito");
                 }
+            case "Gabinete":
+                if(this.capacidadActualDeGabinetes >= 1){
+                    this.capacidadActualDeGabinetes--;
+                    return  this.stock.get(componente.getCategoria()).add(componente);
+                }
+            default:
+                return false;
         }
 
-        return null;
+
     }
 
     //Cambiar después el parametro con un enum?

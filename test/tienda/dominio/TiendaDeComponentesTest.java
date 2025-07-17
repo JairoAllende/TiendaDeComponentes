@@ -18,14 +18,13 @@ public class TiendaDeComponentesTest {
     private TiendaDeComponentes tiendaDeComponentes;
     private Procesador ryzen33200g;
     private Componente ryzen55600g;
-    private Componente corei512100f;
+
 
     @BeforeEach
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
         this.ryzen33200g = new Procesador(Procesadores.RYZEN_3_3200G);
         this.ryzen55600g = new Procesador(Procesadores.RYZEN_5_5600G);
-        this.corei512100f = new Procesador(Procesadores.CORE_I3_12100f);
     }
 
     @Test
