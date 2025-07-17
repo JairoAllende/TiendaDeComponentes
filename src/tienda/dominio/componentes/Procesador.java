@@ -4,6 +4,7 @@ import tienda.dominio.enums.Procesadores;
 
 public class Procesador extends Componente {
 
+    private static int contador = 0;
     private final String MARCA;
     private final String MODELO;
     private final Integer HILOS;
@@ -12,6 +13,7 @@ public class Procesador extends Componente {
 
     public Procesador(Procesadores procesador) {
         super();
+        this.id = contador++;
         this.MARCA = procesador.getMARCA();
         this.MODELO = procesador.getMODELO();
         this.HILOS = procesador.getHILOS();
@@ -40,6 +42,9 @@ public class Procesador extends Componente {
         return FRECUENCIA_TURBO;
     }
 
+    public static void resetearContador(){
+        contador = 0;
+    }
     @Override
     public void esAbstracto() {
 

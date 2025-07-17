@@ -3,6 +3,7 @@ package tienda.dominio.componentes;
 public abstract class Componente {
     //Hacer una lista de precios para obtenerla desde el enum?
     protected Double precio;
+    protected Integer id;
 
     public abstract void esAbstracto();
 

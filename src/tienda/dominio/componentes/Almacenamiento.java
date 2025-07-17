@@ -4,6 +4,7 @@ import tienda.dominio.enums.Almacenamientos;
 
 public class Almacenamiento extends Componente {
 
+    private static Integer contador = 0;
     private final Boolean ES_EXTERNO;
     private final String TIPO;
     private final String MARCA;
@@ -14,6 +15,7 @@ public class Almacenamiento extends Componente {
 
     public Almacenamiento(Almacenamientos almacenamiento) {
         super();
+        this.id = contador++;
         this.ES_EXTERNO = almacenamiento.getES_EXTERNO();
         this.TIPO = almacenamiento.getTIPO();
         this.MARCA = almacenamiento.getMARCA();
@@ -50,6 +52,10 @@ public class Almacenamiento extends Componente {
 
     public String getTIPO_DE_CONEXION() {
         return TIPO_DE_CONEXION;
+    }
+
+    public static void resetearContador(){
+        contador = 0;
     }
 
     @Override

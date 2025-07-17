@@ -3,7 +3,7 @@ package tienda.dominio.componentes;
 import tienda.dominio.enums.Gabinetes;
 
 public class Gabinete extends Componente {
-
+    private static Integer contador = 0;
     private final String MODELO;
     private final String FACTOR_MOTHER;
     private final String TAMANIO_GABINETE;
@@ -15,6 +15,7 @@ public class Gabinete extends Componente {
 
     public Gabinete(Gabinetes gabinete) {
         super();
+        this.id = contador++;
         this.MODELO = gabinete.getMODELO();
         this.FACTOR_MOTHER = gabinete.getFACTOR_MOTHER();
         this.TAMANIO_GABINETE = gabinete.getTAMANIO_GABINETE();
@@ -56,6 +57,10 @@ public class Gabinete extends Componente {
 
     public String getCOLOR() {
         return COLOR;
+    }
+
+    public static void resetearContador(){
+        contador = 0;
     }
 
     @Override

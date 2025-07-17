@@ -1,6 +1,5 @@
 package tienda.dominio;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -23,6 +22,7 @@ public class TiendaDeComponentesTest {
     @BeforeEach
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
+        Procesador.resetearContador();
         this.ryzen33200g = new Procesador(Procesadores.RYZEN_3_3200G);
         this.ryzen55600g = new Procesador(Procesadores.RYZEN_5_5600G);
     }
@@ -85,13 +85,16 @@ public class TiendaDeComponentesTest {
         }
     }
 
-    @Nested
+    @Nested // Agregar otros componentes
     class AgregarComponentesAlStock{
         private TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
 
         @BeforeEach
         public void init(){
             this.tiendaDeComponentes = new TiendaDeComponentes();
+            Almacenamiento.resetearContador();
+            Gabinete.resetearContador();
+            Procesador.resetearContador();
         }
 
         @Test
@@ -172,7 +175,6 @@ public class TiendaDeComponentesTest {
         }
     }
 
-
     @Test
     public void dadoQueSeBuscanTodosLosComponentesDeUnaCategoriaCuandoHagoLaBusquedaObtengoUnaListaDeTodosLosComponentesDeEsaCategoria() throws CapacidadSuperadaException {
         this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
@@ -186,6 +188,8 @@ public class TiendaDeComponentesTest {
         assertTrue(listaDeProcesadores.contains(this.ryzen33200g));
         assertTrue(listaDeProcesadores.contains(this.ryzen55600g));
     }
+
+
 
 }
 
