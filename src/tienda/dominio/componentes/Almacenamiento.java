@@ -13,6 +13,7 @@ public class Almacenamiento extends Componente {
     private final String TIPO_DE_CONEXION;
 
     public Almacenamiento(Almacenamientos almacenamiento) {
+        super();
         this.ES_EXTERNO = almacenamiento.getES_EXTERNO();
         this.TIPO = almacenamiento.getTIPO();
         this.MARCA = almacenamiento.getMARCA();
@@ -20,6 +21,7 @@ public class Almacenamiento extends Componente {
         this.VELOCIDAD_LECTURA = almacenamiento.getVELOCIDAD_LECTURA();
         this.VELOCIDAD_ESCRITURA = almacenamiento.getVELOCIDAD_ESCRITURA();
         this.TIPO_DE_CONEXION = almacenamiento.getTIPO_DE_CONEXION();
+        this.precio = almacenamiento.getPRECIO();
     }
 
     public Boolean getES_EXTERNO() {

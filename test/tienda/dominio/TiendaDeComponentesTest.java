@@ -79,7 +79,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnGabinete(){
-            Componente pruebaComponenteGabinete = new Gabinete();
+            Componente pruebaComponenteGabinete = new Gabinete(Gabinetes.DEEPCOOL_CH260);
 
             assertNotNull(pruebaComponenteGabinete);
         }
