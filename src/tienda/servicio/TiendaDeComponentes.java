@@ -1,13 +1,13 @@
 package tienda.servicio;
 
 import tienda.dominio.componentes.Componente;
-import tienda.dominio.componentes.Procesador;
 import tienda.exceptions.CapacidadSuperadaException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 public class TiendaDeComponentes {
     private final Map<String, List<Componente>> stock = new TreeMap<>();
@@ -66,10 +66,9 @@ public class TiendaDeComponentes {
     public Boolean eliminarComponenteDeStock(String componente, Integer idComponente) {
 
         if(this.stock.get(componente) != null){
-            //Buscar sobre Predicate
-            //Buscar sobre removeIf
-                                             //Elimina de la coleccion si( variableAuxiliar -> variableAuxilirar cumple esta condicion)
-            return this.stock.get(componente).removeIf(componenteDelStock -> componenteDelStock.getId().equals(idComponente));
+            Predicate<Componente> mismoId = componenteStock -> componenteStock.getId().equals(idComponente);
+
+            return this.stock.get(componente).removeIf(mismoId);
         }else{
             return false;
         }
