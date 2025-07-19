@@ -1,12 +1,11 @@
 package tienda.servicio;
 
 import tienda.dominio.componentes.Componente;
+import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class TiendaDeComponentes {
@@ -14,6 +13,7 @@ public class TiendaDeComponentes {
     private Integer capacidadActualDeProcesadores = 2;
     private Integer capacidadActualDeAlmacenamientos = 5;
     private Integer capacidadActualDeGabinetes = 3;
+    private Set<Paquete> paquetes = new TreeSet<>();
     //-----------
 
     public TiendaDeComponentes(){
@@ -53,8 +53,6 @@ public class TiendaDeComponentes {
             default:
                 return false;
         }
-
-
     }
 
     //Cambiar después el parametro con un enum?
@@ -72,5 +70,12 @@ public class TiendaDeComponentes {
         }else{
             return false;
         }
+    }
+    public Boolean crearUnPaquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesAlPaquete) {
+        return this.paquetes.add(new Paquete(creacionDelPaquete, componentesAlPaquete));
+    }
+
+    public Set<Paquete> getPaquetes() {
+        return this.paquetes;
     }
 }

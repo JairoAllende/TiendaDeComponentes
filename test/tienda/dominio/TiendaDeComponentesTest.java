@@ -7,10 +7,14 @@ import tienda.dominio.componentes.*;
 import tienda.dominio.enums.Almacenamientos;
 import tienda.dominio.enums.Gabinetes;
 import tienda.dominio.enums.Procesadores;
+import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.servicio.TiendaDeComponentes;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -202,8 +206,42 @@ public class TiendaDeComponentesTest {
 
     @Test
     public void dadoQueExisteUnaTiendaDeComponentesPuedoCrearUnPaqueteConConComponentes(){
+        Set<Componente> componentesAlPaquete = new HashSet<>();
 
-        this.tiendaDeComponentes.crearUnPaquete(procesador, almacenamiento, gabinetes);
+        Boolean paqueteCreado = this.tiendaDeComponentes.crearUnPaquete(LocalDateTime.now(), componentesAlPaquete);
+
+        assertTrue(paqueteCreado);
+    }
+
+    @Test
+    public void dadoQueSeCreaUnPaqueteConComponentesCuandoObtengoLosPaquetesEstanOrdenadosPorFechaDeCreacion(){
+        Set<Componente> componentesAlPaquete = new HashSet<>();
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(new Procesador(Procesadores.CORE_I5_12400));
+        componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM));
+        LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,18,18,15,10);
+        LocalDateTime creacionDelPaquete2 = LocalDateTime.of(2025,7,18,18,20,10);
+        LocalDateTime creacionDelPaquete3 = LocalDateTime.of(2025,7,18,18,22,10);
+
+        this.tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
+        this.tiendaDeComponentes.crearUnPaquete(creacionDelPaquete2, componentesAlPaquete);
+        this.tiendaDeComponentes.crearUnPaquete(creacionDelPaquete3, componentesAlPaquete);
+        Set<Paquete> paquetesObtenidos = this.tiendaDeComponentes.getPaquetes();
+
+        int contador = 0;
+        for (Paquete paquete: paquetesObtenidos) {
+            switch (contador) {
+                case 0 -> {
+                    assertEquals(creacionDelPaquete1, paquete.getCreacionDelPaquete());
+                    contador++;
+                }
+                case 1 -> {
+                    assertEquals(creacionDelPaquete2, paquete.getCreacionDelPaquete());
+                    contador++;
+                }
+                case 2 -> assertEquals(creacionDelPaquete3, paquete.getCreacionDelPaquete());
+            }
+        }
     }
 }
 

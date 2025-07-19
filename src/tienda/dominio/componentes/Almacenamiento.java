@@ -40,8 +40,8 @@ public class Almacenamiento extends Componente {
         return MARCA;
     }
 
-    public String getMOdelo(){
-        return Modelo;
+    public String getModelo(){
+        return MODELO;
     }
 
     public Integer getCAPACIDAD_GIGAS() {
