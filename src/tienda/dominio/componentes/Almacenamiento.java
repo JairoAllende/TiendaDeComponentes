@@ -8,6 +8,7 @@ public class Almacenamiento extends Componente {
     private final Boolean ES_EXTERNO;
     private final String TIPO;
     private final String MARCA;
+    private final String MODELO;
     private final Integer CAPACIDAD_GIGAS;
     private final Integer VELOCIDAD_LECTURA;
     private final Integer VELOCIDAD_ESCRITURA;
@@ -19,6 +20,7 @@ public class Almacenamiento extends Componente {
         this.ES_EXTERNO = almacenamiento.getES_EXTERNO();
         this.TIPO = almacenamiento.getTIPO();
         this.MARCA = almacenamiento.getMARCA();
+        this.MODELO = almacenamiento.getMODELO();
         this.CAPACIDAD_GIGAS = almacenamiento.getCAPACIDAD_GIGAS();
         this.VELOCIDAD_LECTURA = almacenamiento.getVELOCIDAD_LECTURA();
         this.VELOCIDAD_ESCRITURA = almacenamiento.getVELOCIDAD_ESCRITURA();
@@ -36,6 +38,10 @@ public class Almacenamiento extends Componente {
 
     public String getMARCA() {
         return MARCA;
+    }
+
+    public String getMOdelo(){
+        return Modelo;
     }
 
     public Integer getCAPACIDAD_GIGAS() {

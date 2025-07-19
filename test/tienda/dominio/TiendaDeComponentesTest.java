@@ -200,7 +200,11 @@ public class TiendaDeComponentesTest {
         assertTrue(componenteEliminado);
     }
 
+    @Test
+    public void dadoQueExisteUnaTiendaDeComponentesPuedoCrearUnPaqueteConConComponentes(){
 
+        this.tiendaDeComponentes.crearUnPaquete(procesador, almacenamiento, gabinetes);
+    }
 }
 
 /*✅ 1. Gestión de componentes
