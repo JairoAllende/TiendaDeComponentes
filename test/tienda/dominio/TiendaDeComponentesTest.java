@@ -9,6 +9,7 @@ import tienda.dominio.enums.Gabinetes;
 import tienda.dominio.enums.Procesadores;
 import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
+import tienda.exceptions.ComponenteNoEncontradoException;
 import tienda.servicio.TiendaDeComponentes;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,8 @@ public class TiendaDeComponentesTest {
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
         Procesador.resetearContador();
+        Almacenamiento.resetearContador();
+        Gabinete.resetearContador();
         this.ryzen33200g = new Procesador(Procesadores.RYZEN_3_3200G);
         this.ryzen55600g = new Procesador(Procesadores.RYZEN_5_5600G);
     }
@@ -195,13 +198,23 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void dadoQueSeDeseaEliminarUnComponenteDelStockCuandoIngresoUnTipoDeComponenteYUnIdValidoEntoncesObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+    public void dadoQueSeDeseaEliminarUnComponenteDelStockCuandoIngresoUnTipoDeComponenteYUnIdValidoEntoncesObtengoUnResultadoPositivo() throws CapacidadSuperadaException, ComponenteNoEncontradoException {
         this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
         this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen55600g);
 
         Boolean componenteEliminado = this.tiendaDeComponentes.eliminarComponenteDeStock("Procesador", 1);
 
         assertTrue(componenteEliminado);
+    }
+
+    @Test
+    public void  dadoQueSeDeseaEliminarUnComponenteDelStockCuandoIngresoUnTipoDeComponenteYUnIdNoValidoSeLanzaUnaComponenteNoEncontradoException() throws CapacidadSuperadaException {
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen55600g);
+
+        Exception exception = assertThrows(ComponenteNoEncontradoException.class, ()-> this.tiendaDeComponentes.eliminarComponenteDeStock("Procesador", 3));
+
+        assertEquals(exception.getMessage(), "El componente de la cateogria Procesador con el ID: 3 no existe");
     }
 
     @Test
@@ -242,6 +255,15 @@ public class TiendaDeComponentesTest {
                 case 2 -> assertEquals(creacionDelPaquete3, paquete.getCreacionDelPaquete());
             }
         }
+    }
+
+    @Test
+    public void dadoQueExistenPaquetesConComponentesAlBuscarloPorSuIdObtengoElPaqueteBuscado(){
+        Set<Componente> componentesAlPaquete = new HashSet<>();
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,18,18,15,10);
+        LocalDateTime creacionDelPaquete2 = LocalDateTime.of(2025,7,18,18,20,10);
+        tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
     }
 }
 

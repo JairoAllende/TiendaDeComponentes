@@ -3,6 +3,7 @@ package tienda.servicio;
 import tienda.dominio.componentes.Componente;
 import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
+import tienda.exceptions.ComponenteNoEncontradoException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -57,16 +58,21 @@ public class TiendaDeComponentes {
 
     //Cambiar después el parametro con un enum?
     public List<Componente> buscarComponentesPorCategoria(String componente) {
-
         return this.stock.get(componente);
     }
 
-    public Boolean eliminarComponenteDeStock(String componente, Integer idComponente) {
+    public Boolean eliminarComponenteDeStock(String categoriaComponente, Integer idComponente) throws ComponenteNoEncontradoException {
 
-        if(this.stock.get(componente) != null){
+        if(this.stock.get(categoriaComponente) != null){
             Predicate<Componente> mismoId = componenteStock -> componenteStock.getId().equals(idComponente);
+            List<Componente> componentes = this.stock.get(categoriaComponente);
 
-            return this.stock.get(componente).removeIf(mismoId);
+            if(componentes.removeIf(mismoId)){
+                return true;
+            }else{
+                throw new ComponenteNoEncontradoException("El componente de la cateogria " + categoriaComponente + " con el ID: " + idComponente + " no existe");
+            }
+
         }else{
             return false;
         }
