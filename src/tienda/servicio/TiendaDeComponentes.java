@@ -4,6 +4,7 @@ import tienda.dominio.componentes.Componente;
 import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.exceptions.ComponenteNoEncontradoException;
+import tienda.exceptions.PaqueteNoEncontradoException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -77,11 +78,23 @@ public class TiendaDeComponentes {
             return false;
         }
     }
-    public Boolean crearUnPaquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesAlPaquete) {
+    public Boolean crearUnPaquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesAlPaquete){
         return this.paquetes.add(new Paquete(creacionDelPaquete, componentesAlPaquete));
+    }
+
+    public Paquete buscarPaquete(Integer idPaquete) throws PaqueteNoEncontradoException {
+
+        for (Paquete paquete : this.paquetes) {
+            if(paquete.getId().equals(idPaquete)){
+                return paquete;
+            }
+        }
+
+        throw new PaqueteNoEncontradoException("No se encontró ningún paquete con el Id: " + idPaquete);
     }
 
     public Set<Paquete> getPaquetes() {
         return this.paquetes;
     }
+
 }

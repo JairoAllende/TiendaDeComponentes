@@ -9,9 +9,9 @@ import java.util.Set;
 
 public class Paquete implements Comparable<Paquete>{
     private static Integer contador = 0;
-    private  Integer id;
+    private final Integer id;
     private final LocalDateTime creacionDelPaquete;
-    private Set<Componente> componentesDelPaquete;
+    private final Set<Componente> componentesDelPaquete;
 
     public Paquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesDelPaquete) {
         this.id = contador++;
@@ -48,5 +48,9 @@ public class Paquete implements Comparable<Paquete>{
         }else{
             return porFecha;
         }
+    }
+
+    public Integer getId() {
+        return this.id;
     }
 }

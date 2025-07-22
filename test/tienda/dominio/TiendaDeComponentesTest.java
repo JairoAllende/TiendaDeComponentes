@@ -10,6 +10,7 @@ import tienda.dominio.enums.Procesadores;
 import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.exceptions.ComponenteNoEncontradoException;
+import tienda.exceptions.PaqueteNoEncontradoException;
 import tienda.servicio.TiendaDeComponentes;
 
 import java.time.LocalDateTime;
@@ -258,13 +259,35 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void dadoQueExistenPaquetesConComponentesAlBuscarloPorSuIdObtengoElPaqueteBuscado(){
+    public void dadoQueExistenPaquetesConComponentesAlBuscarloPorSuIdObtengoElPaqueteBuscado() throws PaqueteNoEncontradoException {
         Set<Componente> componentesAlPaquete = new HashSet<>();
-        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,18,18,15,10);
         LocalDateTime creacionDelPaquete2 = LocalDateTime.of(2025,7,18,18,20,10);
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
         tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
+        tiendaDeComponentes.crearUnPaquete(creacionDelPaquete2, componentesAlPaquete);
+
+        Paquete paqueteObtenido = tiendaDeComponentes.buscarPaquete(1);
+
+        assertEquals(1, paqueteObtenido.getId());
     }
+
+    @Test
+    public void dadoQueExistenPaquetesConComponentesAlBuscarloPorUnIdInexistenteSeLanzaPaqueteNoEncontradoException(){
+        Set<Componente> componentesAlPaquete = new HashSet<>();
+        LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,18,18,15,10);
+        LocalDateTime creacionDelPaquete2 = LocalDateTime.of(2025,7,18,18,20,10);
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
+        tiendaDeComponentes.crearUnPaquete(creacionDelPaquete2, componentesAlPaquete);
+
+        Exception exception = assertThrows(PaqueteNoEncontradoException.class, ()-> this.tiendaDeComponentes.buscarPaquete(2));
+
+        assertEquals(exception.getMessage(), "No se encontró ningún paquete con el Id: 2");
+    }
+
 }
 
 /*✅ 1. Gestión de componentes
