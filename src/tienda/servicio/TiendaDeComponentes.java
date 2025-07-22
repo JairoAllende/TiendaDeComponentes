@@ -15,7 +15,7 @@ public class TiendaDeComponentes {
     private Integer capacidadActualDeProcesadores = 2;
     private Integer capacidadActualDeAlmacenamientos = 5;
     private Integer capacidadActualDeGabinetes = 3;
-    private Set<Paquete> paquetes = new TreeSet<>();
+    private final Set<Paquete> paquetes = new TreeSet<>();
     //-----------
 
     public TiendaDeComponentes(){

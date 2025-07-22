@@ -1,22 +1,24 @@
 package tienda.dominio.paquetes;
 
+import tienda.dominio.comparators.ComparadorPorPrecio;
 import tienda.dominio.componentes.Componente;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Paquete implements Comparable<Paquete>{
     private static Integer contador = 0;
     private final Integer id;
     private final LocalDateTime creacionDelPaquete;
-    private Set<Componente> componentesDelPaquete;
+    private final Set<Componente> componentesDelPaquete = new TreeSet<>(new ComparadorPorPrecio());
 
     public Paquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesDelPaquete) {
         this.id = contador++;
         this.creacionDelPaquete = creacionDelPaquete;
-        this.componentesDelPaquete = new HashSet<>(componentesDelPaquete);
+        this.componentesDelPaquete.addAll(componentesDelPaquete);
     }
 
     public static void resetearContador(){
@@ -37,6 +39,10 @@ public class Paquete implements Comparable<Paquete>{
             precio += componente.getPrecio();
         }
         return precio;
+    }
+
+    public Set<Componente> getComponentes() {
+        return this.componentesDelPaquete;
     }
 
     @Override
@@ -61,4 +67,5 @@ public class Paquete implements Comparable<Paquete>{
             return porFecha;
         }
     }
+
 }

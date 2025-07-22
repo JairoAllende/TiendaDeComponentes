@@ -3,7 +3,6 @@ public enum Gabinetes {
     CHECKPOINT_NEBULA_350("Nebula 350","ITX,M-ATX,ATX", "Mid-Tower", 185d, 420d, 350d, "ATX", "Negro", 37000d),
     DEEPCOOL_MACUBE_110("Macube 110","M-ATX,ATX", "Mid-Tower", 225d, 431d, 400d, "ATX", "Blanco", 60000d),
     DEEPCOOL_CH260("CH260","M-ATX,ATX", "Mini-Tower", 225d, 312d, 438d, "ATX", "Blanco", 92000d);
-    ;
 
     private final String MODELO;
     private final String FACTOR_MOTHER;

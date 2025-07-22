@@ -290,6 +290,44 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
+    public void dadoQueExisteUnPaqueteConComponentesCuandoObtengoLaListaDeComponentesDelPaqueteLosObtengoOrdenadosPorPrecioDescendentementeYPorIdSiEmpatan() throws PaqueteNoEncontradoException {
+        Set<Componente> componentesAlPaquete = new HashSet<>();
+        LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,22,18,15,10);
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE));
+        componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE));
+        componentesAlPaquete.add(new Procesador(Procesadores.CORE_I5_12400));
+        tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
+
+        Set<Componente> componentesDelPaquete = tiendaDeComponentes.buscarPaquete(0).getComponentes();
+        Double precioEsperado1 = 200960d;
+        Double precioEsperado2 = 83000d;
+        Double precioEsperado3 = 83000d;
+        Double precioEsperado4 = 37000d;
+
+        int contador = 0;
+        for (Componente componente: componentesDelPaquete) {
+            switch (contador){
+               case 0 -> {
+                   assertEquals(precioEsperado1, componente.getPrecio());
+                   contador++;
+               }
+               case 1 -> {
+                   assertEquals(precioEsperado2, componente.getPrecio());
+                   assertEquals(0,componente.getId());
+                   contador++;
+               }
+               case 2 -> {
+                   assertEquals(precioEsperado3, componente.getPrecio());
+                   assertEquals(1,componente.getId());
+                   contador++;
+               }
+               case 3 -> assertEquals(precioEsperado4, componente.getPrecio());
+            }
+        }
+    }
+
+    @Test
     public void dadoQueExistenPaquetesConUnGabineteNebula350UnHDDDSeagate2TBYUnProcesadorCOREI512400ObtengoUnPrecioFinalDe320960() throws PaqueteNoEncontradoException {
         Set<Componente> componentesAlPaquete = new HashSet<>();
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,22,18,15,10);
