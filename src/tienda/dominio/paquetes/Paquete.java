@@ -11,7 +11,7 @@ public class Paquete implements Comparable<Paquete>{
     private static Integer contador = 0;
     private final Integer id;
     private final LocalDateTime creacionDelPaquete;
-    private final Set<Componente> componentesDelPaquete;
+    private Set<Componente> componentesDelPaquete;
 
     public Paquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesDelPaquete) {
         this.id = contador++;
@@ -25,6 +25,18 @@ public class Paquete implements Comparable<Paquete>{
 
     public LocalDateTime getCreacionDelPaquete(){
         return  this.creacionDelPaquete;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public Double getPrecioFinal() {
+        Double precio = 0d;
+        for (Componente componente : this.componentesDelPaquete) {
+            precio += componente.getPrecio();
+        }
+        return precio;
     }
 
     @Override
@@ -48,9 +60,5 @@ public class Paquete implements Comparable<Paquete>{
         }else{
             return porFecha;
         }
-    }
-
-    public Integer getId() {
-        return this.id;
     }
 }

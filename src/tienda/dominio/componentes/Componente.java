@@ -27,7 +27,8 @@ public abstract class Componente {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Componente that)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Componente that = (Componente) o;
         return Objects.equals(id, that.id);
     }
 

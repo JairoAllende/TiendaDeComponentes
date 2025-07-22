@@ -29,11 +29,12 @@ public class TiendaDeComponentesTest {
     @BeforeEach
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
+        this.ryzen33200g = new Procesador(Procesadores.RYZEN_3_3200G);
+        this.ryzen55600g = new Procesador(Procesadores.RYZEN_5_5600G);
         Procesador.resetearContador();
         Almacenamiento.resetearContador();
         Gabinete.resetearContador();
-        this.ryzen33200g = new Procesador(Procesadores.RYZEN_3_3200G);
-        this.ryzen55600g = new Procesador(Procesadores.RYZEN_5_5600G);
+        Paquete.resetearContador();
     }
 
     @Test
@@ -286,6 +287,21 @@ public class TiendaDeComponentesTest {
         Exception exception = assertThrows(PaqueteNoEncontradoException.class, ()-> this.tiendaDeComponentes.buscarPaquete(2));
 
         assertEquals(exception.getMessage(), "No se encontró ningún paquete con el Id: 2");
+    }
+
+    @Test
+    public void dadoQueExistenPaquetesConUnGabineteNebula350UnHDDDSeagate2TBYUnProcesadorCOREI512400ObtengoUnPrecioFinalDe320960() throws PaqueteNoEncontradoException {
+        Set<Componente> componentesAlPaquete = new HashSet<>();
+        LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,22,18,15,10);
+        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE));
+        componentesAlPaquete.add(new Procesador(Procesadores.CORE_I5_12400));
+        tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
+
+        Double precioFinalObtenido = tiendaDeComponentes.buscarPaquete(0).getPrecioFinal();
+        Double precioFinalEsperado = 320960d;
+
+        assertEquals(precioFinalEsperado, precioFinalObtenido);
     }
 
 }
