@@ -23,14 +23,23 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TiendaDeComponentesTest {
 
     private TiendaDeComponentes tiendaDeComponentes;
-    private Procesador ryzen33200g;
+    private Componente ryzen33200g;
     private Componente ryzen55600g;
+    private Componente nebula350;
+    private Componente coreI512400;
+    private Componente ssd256;
+    private Componente hdd2;
+
 
     @BeforeEach
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
         this.ryzen33200g = new Procesador(Procesadores.RYZEN_3_3200G);
         this.ryzen55600g = new Procesador(Procesadores.RYZEN_5_5600G);
+        this.coreI512400 = new Procesador(Procesadores.CORE_I5_12400);
+        this.nebula350 = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
+        this.ssd256 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
+        this.hdd2 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE);
         Procesador.resetearContador();
         Almacenamiento.resetearContador();
         Gabinete.resetearContador();
@@ -98,10 +107,12 @@ public class TiendaDeComponentesTest {
     @Nested // Agregar otros componentes
     class AgregarComponentesAlStock{
         private TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
+        private Componente ssd256;
 
         @BeforeEach
         public void init(){
             this.tiendaDeComponentes = new TiendaDeComponentes();
+            this.ssd256 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
             Almacenamiento.resetearContador();
             Gabinete.resetearContador();
             Procesador.resetearContador();
@@ -123,7 +134,6 @@ public class TiendaDeComponentesTest {
             Componente pruebaComponente3 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_1TB_ADATA);
             Componente pruebaComponente4 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_2TB_ADATA);
             Componente pruebaComponente5 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
-            Componente pruebaComponente6 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
 
             this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
             this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
@@ -131,7 +141,7 @@ public class TiendaDeComponentesTest {
             this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4);
             this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente5);
 
-            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente6));
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ssd256));
 
             assertEquals("No se pueden almacenar más unidades de almacenamiento. Se alcanzo el limite en el deposito", exception.getMessage());
         }
@@ -159,7 +169,6 @@ public class TiendaDeComponentesTest {
             Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4));
             assertEquals("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito", exception.getMessage());
         }
-        //---------
 
         @Test
         public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
@@ -231,9 +240,9 @@ public class TiendaDeComponentesTest {
     @Test
     public void dadoQueSeCreaUnPaqueteConComponentesCuandoObtengoLosPaquetesEstanOrdenadosPorFechaDeCreacion(){
         Set<Componente> componentesAlPaquete = new HashSet<>();
-        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
-        componentesAlPaquete.add(new Procesador(Procesadores.CORE_I5_12400));
-        componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM));
+        componentesAlPaquete.add(this.nebula350);
+        componentesAlPaquete.add(this.coreI512400);
+        componentesAlPaquete.add(this.ssd256);
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,18,18,15,10);
         LocalDateTime creacionDelPaquete2 = LocalDateTime.of(2025,7,18,18,20,10);
         LocalDateTime creacionDelPaquete3 = LocalDateTime.of(2025,7,18,18,22,10);
@@ -264,7 +273,7 @@ public class TiendaDeComponentesTest {
         Set<Componente> componentesAlPaquete = new HashSet<>();
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,18,18,15,10);
         LocalDateTime creacionDelPaquete2 = LocalDateTime.of(2025,7,18,18,20,10);
-        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(this.nebula350);
         componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
         tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
         tiendaDeComponentes.crearUnPaquete(creacionDelPaquete2, componentesAlPaquete);
@@ -279,7 +288,7 @@ public class TiendaDeComponentesTest {
         Set<Componente> componentesAlPaquete = new HashSet<>();
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,18,18,15,10);
         LocalDateTime creacionDelPaquete2 = LocalDateTime.of(2025,7,18,18,20,10);
-        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(this.nebula350);
         componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
         tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
         tiendaDeComponentes.crearUnPaquete(creacionDelPaquete2, componentesAlPaquete);
@@ -293,10 +302,10 @@ public class TiendaDeComponentesTest {
     public void dadoQueExisteUnPaqueteConComponentesCuandoObtengoLaListaDeComponentesDelPaqueteLosObtengoOrdenadosPorPrecioDescendentementeYPorIdSiEmpatan() throws PaqueteNoEncontradoException {
         Set<Componente> componentesAlPaquete = new HashSet<>();
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,22,18,15,10);
-        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
+        componentesAlPaquete.add(this.nebula350);
+        componentesAlPaquete.add(this.hdd2);
         componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE));
-        componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE));
-        componentesAlPaquete.add(new Procesador(Procesadores.CORE_I5_12400));
+        componentesAlPaquete.add(this.coreI512400);
         tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
 
         Set<Componente> componentesDelPaquete = tiendaDeComponentes.buscarPaquete(0).getComponentes();
@@ -331,9 +340,9 @@ public class TiendaDeComponentesTest {
     public void dadoQueExistenPaquetesConUnGabineteNebula350UnHDDDSeagate2TBYUnProcesadorCOREI512400ObtengoUnPrecioFinalDe320960() throws PaqueteNoEncontradoException {
         Set<Componente> componentesAlPaquete = new HashSet<>();
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,22,18,15,10);
-        componentesAlPaquete.add(new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350));
-        componentesAlPaquete.add(new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE));
-        componentesAlPaquete.add(new Procesador(Procesadores.CORE_I5_12400));
+        componentesAlPaquete.add(this.nebula350);
+        componentesAlPaquete.add(this.hdd2);
+        componentesAlPaquete.add(this.coreI512400);
         tiendaDeComponentes.crearUnPaquete(creacionDelPaquete1, componentesAlPaquete);
 
         Double precioFinalObtenido = tiendaDeComponentes.buscarPaquete(0).getPrecioFinal();
