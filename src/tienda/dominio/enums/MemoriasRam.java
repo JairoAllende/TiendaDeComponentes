@@ -1,7 +1,7 @@
 package tienda.dominio.enums;
 
 public enum MemoriasRam {
-    GSKILL_8GB_266MHz(false, "DDR4", "GSKILL", 8, 3200, 24900d);
+    GSKILL_8GB_266MHZ(false, "DDR4", "GSKILL", 8, 3200, 24900d);
 
     private final Boolean DE_NOTEBOOK;
     private final String TIPO;
