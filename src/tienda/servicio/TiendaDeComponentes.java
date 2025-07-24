@@ -15,6 +15,7 @@ public class TiendaDeComponentes {
     private Integer capacidadActualDeProcesadores = 2;
     private Integer capacidadActualDeAlmacenamientos = 5;
     private Integer capacidadActualDeGabinetes = 3;
+    private Integer capacidadActualDeMemoriasRam = 4;
     private final Set<Paquete> paquetes = new TreeSet<>();
     //-----------
 
@@ -31,13 +32,6 @@ public class TiendaDeComponentes {
     public Boolean agregarUnComponenteAlStock(Componente componente) throws CapacidadSuperadaException {
 
         switch (componente.getCategoria()){
-            case "Procesador":
-                if(this.capacidadActualDeProcesadores >= 1){
-                    this.capacidadActualDeProcesadores--;
-                    return this.stock.get(componente.getCategoria()).add(componente);
-                }else {
-                    throw new CapacidadSuperadaException("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito");
-                }
             case "Almacenamiento":
                 if (this.capacidadActualDeAlmacenamientos >= 1){
                     this.capacidadActualDeAlmacenamientos--;
@@ -51,6 +45,20 @@ public class TiendaDeComponentes {
                     return  this.stock.get(componente.getCategoria()).add(componente);
                 }else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito");
+                }
+            case "MemoriaRam":
+                if(this.capacidadActualDeMemoriasRam >= 1){
+                    this.capacidadActualDeMemoriasRam--;
+                    return this.stock.get(componente.getCategoria()).add(componente);
+                }else{
+                    throw new CapacidadSuperadaException("No se pueden almacenar más memorias ram. Se alcanzo el limite en el deposito");
+                }
+            case "Procesador":
+                if(this.capacidadActualDeProcesadores >= 1){
+                    this.capacidadActualDeProcesadores--;
+                    return this.stock.get(componente.getCategoria()).add(componente);
+                }else {
+                    throw new CapacidadSuperadaException("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito");
                 }
             default:
                 return false;

@@ -109,11 +109,13 @@ public class TiendaDeComponentesTest {
     class AgregarComponentesAlStock{
         private TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
         private Componente ssd256;
+        private Componente team32GB;
 
         @BeforeEach
         public void init(){
             this.tiendaDeComponentes = new TiendaDeComponentes();
             this.ssd256 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
+            this.team32GB = new MemoriaRam(MemoriasRam.TEAM_32GB_26666MHZ);
             Almacenamiento.resetearContador();
             Gabinete.resetearContador();
             Procesador.resetearContador();
@@ -169,6 +171,15 @@ public class TiendaDeComponentesTest {
 
             Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4));
             assertEquals("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito", exception.getMessage());
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarUnaMemoriaRamAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(this.team32GB);
+
+            Boolean memoriaRamAgregada = this.tiendaDeComponentes.agregarUnComponenteAlStock(this.team32GB);
+
+            assertTrue(memoriaRamAgregada);
         }
 
         @Test
