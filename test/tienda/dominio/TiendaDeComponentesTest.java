@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
 import tienda.dominio.enums.Almacenamientos;
 import tienda.dominio.enums.Gabinetes;
+import tienda.dominio.enums.MemoriasRam;
 import tienda.dominio.enums.Procesadores;
 import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
@@ -77,7 +78,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnaMemoriaRam(){
-            Componente pruebaComponentePlacaDeVideo = new MemoriaRam();
+            Componente pruebaComponentePlacaDeVideo = new MemoriaRam(MemoriasRam.GSKILL_8GB_266MHz);
 
             assertNotNull(pruebaComponentePlacaDeVideo);
         }
