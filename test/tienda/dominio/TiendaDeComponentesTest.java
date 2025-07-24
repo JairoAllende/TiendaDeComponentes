@@ -78,7 +78,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnaMemoriaRam(){
-            Componente pruebaComponentePlacaDeVideo = new MemoriaRam(MemoriasRam.GSKILL_8GB_266MHZ);
+            Componente pruebaComponentePlacaDeVideo = new MemoriaRam(MemoriasRam.GSKILL_8GB_3200MHZ);
 
             assertNotNull(pruebaComponentePlacaDeVideo);
         }
