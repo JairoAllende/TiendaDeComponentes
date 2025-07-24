@@ -1,6 +1,6 @@
 package tienda.dominio.paquetes;
 
-import tienda.dominio.comparators.ComparadorPorPrecio;
+import tienda.dominio.comparators.ComparadorPorPrecioDescendente;
 import tienda.dominio.componentes.Componente;
 
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class Paquete implements Comparable<Paquete>{
     private static Integer contador = 0;
     private final Integer id;
     private final LocalDateTime creacionDelPaquete;
-    private final Set<Componente> componentesDelPaquete = new TreeSet<>(new ComparadorPorPrecio());
+    private final Set<Componente> componentesDelPaquete = new TreeSet<>(new ComparadorPorPrecioDescendente());
 
     public Paquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesDelPaquete) {
         this.id = contador++;

@@ -16,7 +16,6 @@ import tienda.servicio.TiendaDeComponentes;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,10 +40,12 @@ public class TiendaDeComponentesTest {
         this.nebula350 = new Gabinete(Gabinetes.CHECKPOINT_NEBULA_350);
         this.ssd256 = new Almacenamiento(Almacenamientos.DISCO_SOLIDO_256G_TEAM);
         this.hdd2 = new Almacenamiento(Almacenamientos.DISCO_RIGIDO_2TB_SEAGATE);
-        Procesador.resetearContador();
         Almacenamiento.resetearContador();
         Gabinete.resetearContador();
+        MemoriaRam.resetearContador();
+        Procesador.resetearContador();
         Paquete.resetearContador();
+
     }
 
     @Test
@@ -175,7 +176,6 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void dadoQueSeIntentaAgregarUnaMemoriaRamAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
-            this.tiendaDeComponentes.agregarUnComponenteAlStock(this.team32GB);
 
             Boolean memoriaRamAgregada = this.tiendaDeComponentes.agregarUnComponenteAlStock(this.team32GB);
 
@@ -223,7 +223,7 @@ public class TiendaDeComponentesTest {
         this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
         this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen55600g);
 
-        List<Componente> listaDeProcesadores = this.tiendaDeComponentes.buscarComponentesPorCategoria("Procesador");
+        Set<Componente> listaDeProcesadores = this.tiendaDeComponentes.buscarComponentesPorCategoria("Procesador");
         Integer procesadoresEsperados = 2;
         Integer procesadoresObtenidos = listaDeProcesadores.size();
 
@@ -373,6 +373,34 @@ public class TiendaDeComponentesTest {
         Double precioFinalEsperado = 320960d;
 
         assertEquals(precioFinalEsperado, precioFinalObtenido);
+    }
+
+    @Test
+    public void dadoQueExistenComponentesEnElStockCuandoBuscoComponentesEnUnRangoDePreciosObtengoUnaListaDeComponentesDentroDeEseRangoDePrecios() throws CapacidadSuperadaException {
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen55600g);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ryzen33200g);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.nebula350);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.hdd2);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(new Gabinete(Gabinetes.DEEPCOOL_CH260));
+
+        Set<Componente> listaDeComponentes = this.tiendaDeComponentes.buscarComponentesPorRangoDePrecio(70000d, 130000d);
+
+        int contador = 0;
+        for (Componente componente: listaDeComponentes) {
+            switch (contador){
+                case 0 -> {
+                    assertEquals(83000d, componente.getPrecio());
+                    contador++;
+                }
+                case 1 -> {
+                    assertEquals(85300d, componente.getPrecio());
+                    contador++;
+                }
+                case 2 -> {
+                    assertEquals(92000d, componente.getPrecio());
+                }
+            }
+        }
     }
 
 }
