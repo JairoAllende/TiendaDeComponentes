@@ -183,6 +183,18 @@ public class TiendaDeComponentesTest {
         }
 
         @Test
+        public void dadoQueSeIntentaAgregarMasMemoriasRamDeLasSoportadasPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(this.team32GB);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new MemoriaRam(MemoriasRam.TEAM_32GB_26666MHZ));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new MemoriaRam(MemoriasRam.ADATA_24GB_9200MHZ));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new MemoriaRam(MemoriasRam.ADATA_24GB_9200MHZ));
+
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(new MemoriaRam(MemoriasRam.ADATA_24GB_9200MHZ)));
+
+            assertEquals(exception.getMessage(), "No se pueden almacenar más memorias ram. Se alcanzo el limite en el deposito");
+        }
+
+        @Test
         public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
             Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
 

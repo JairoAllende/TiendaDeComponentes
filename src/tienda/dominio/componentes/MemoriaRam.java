@@ -4,6 +4,7 @@ import tienda.dominio.enums.MemoriasRam;
 
 public class MemoriaRam extends Componente {
 
+    private static Integer contador = 0;
     private final Boolean DE_NOTEBOOK;
     private final String TIPO;
     private final String MARCA;
@@ -12,6 +13,7 @@ public class MemoriaRam extends Componente {
 
     public MemoriaRam(MemoriasRam memoriasRam) {
         super();
+        this.id = contador++;
         this.DE_NOTEBOOK = memoriasRam.getDE_NOTEBOOK();
         this.TIPO = memoriasRam.getTIPO();
         this.MARCA = memoriasRam.getMARCA();
@@ -40,6 +42,9 @@ public class MemoriaRam extends Componente {
         return FRECUENCIA;
     }
 
+    public static void resetearContador(){
+        contador = 0;
+    }
     @Override
     public void esAbstracto() {
 
