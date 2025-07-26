@@ -191,6 +191,13 @@ public class TiendaDeComponentesTest {
         }
 
         @Test
+        public void dadoQueSeIntentaAgregarUnaMotherBoardAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+            Boolean componenteAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(new Motherboard(Motherboards.ASROCK_A520_AM4));
+
+            assertTrue(componenteAgregado);
+        }
+
+        @Test
         public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
             Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
 

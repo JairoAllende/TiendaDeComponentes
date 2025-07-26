@@ -20,7 +20,9 @@ public class TiendaDeComponentes {
     private Integer capacidadActualDeAlmacenamientos = 5;
     private Integer capacidadActualDeGabinetes = 3;
     private Integer capacidadActualDeMemoriasRam = 4;
+    private Integer capacidadActualDeMotherBoard = 3;
     private final Set<Paquete> paquetes = new TreeSet<>();
+
     //-----------
 
     public TiendaDeComponentes(){
@@ -56,6 +58,13 @@ public class TiendaDeComponentes {
                     return this.stock.get(componente.getCategoria()).add(componente);
                 }else{
                     throw new CapacidadSuperadaException("No se pueden almacenar más memorias ram. Se alcanzo el limite en el deposito");
+                }
+            case "Motherboard":
+                if (this.capacidadActualDeMotherBoard >= 1){
+                    this.capacidadActualDeMotherBoard--;
+                    return this.stock.get(componente.getCategoria()).add(componente);
+                }else{
+                    throw new CapacidadSuperadaException("No se pueden almacenar más motherboards. Se alcanzo el limite en el deposito");
                 }
             case "Procesador":
                 if(this.capacidadActualDeProcesadores >= 1){
