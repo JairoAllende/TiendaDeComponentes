@@ -6,6 +6,7 @@ import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.exceptions.ComponenteNoEncontradoException;
 import tienda.exceptions.PaqueteNoEncontradoException;
+import tienda.exceptions.PrecioInvalidoException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -118,5 +119,14 @@ public class TiendaDeComponentes {
         });
 
         return componentesEnRango;
+    }
+
+    public void modificarPrecio(Componente componente, Double nuevoPrecio) throws PrecioInvalidoException {
+        if(nuevoPrecio > 0){
+            componente.setPrecio(nuevoPrecio);
+        }else{
+            throw new PrecioInvalidoException("El monto ingresado: " + nuevoPrecio + " es invalido. El monto debe ser mayor a 0");
+        }
+
     }
 }

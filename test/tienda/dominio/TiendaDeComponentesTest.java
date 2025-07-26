@@ -12,6 +12,7 @@ import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.exceptions.ComponenteNoEncontradoException;
 import tienda.exceptions.PaqueteNoEncontradoException;
+import tienda.exceptions.PrecioInvalidoException;
 import tienda.servicio.TiendaDeComponentes;
 
 import java.time.LocalDateTime;
@@ -320,6 +321,24 @@ public class TiendaDeComponentesTest {
         Exception exception = assertThrows(PaqueteNoEncontradoException.class, ()-> this.tiendaDeComponentes.buscarPaquete(2));
 
         assertEquals(exception.getMessage(), "No se encontró ningún paquete con el Id: 2");
+    }
+
+    @Test
+    public void dadoQueExisteUnComponenteCuandoLeModificoElPrecioPorUnoValidoEntoncesElPrecioSeModifica() throws PrecioInvalidoException {
+        tiendaDeComponentes.modificarPrecio(this.ssd256, 30000d);
+
+        Double precioAnterior = 25000d;
+        Double precioActual = 30000d;
+
+        assertNotEquals(precioAnterior, this.ssd256.getPrecio());
+        assertEquals(precioActual, this.ssd256.getPrecio());
+    }
+
+    @Test
+    public void dadoQueExisteUnComponenteCuandoLeModificoElPrecioPorUnoNoValidoEntoncesSeLanzaPrecioInvalidoException(){
+        Exception exception = assertThrows(PrecioInvalidoException.class, ()-> tiendaDeComponentes.modificarPrecio(this.ssd256, 0d));
+
+        assertEquals(exception.getMessage(), "El monto ingresado: 0.0 es invalido. El monto debe ser mayor a 0");
     }
 
     @Test

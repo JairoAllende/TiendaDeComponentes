@@ -16,6 +16,7 @@ public abstract class Componente {
     public Double getPrecio(){
         return this.precio;
     }
+
     public void setPrecio(Double precio){
         this.precio = precio;
     }
