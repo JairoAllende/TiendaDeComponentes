@@ -10,7 +10,7 @@ public enum Motherboards {
     private final String MARCA;
     private final String MODELO;
     private final String SOCKET;
-    private final String Factor;
+    private final String FACTOR;
     private final String TIPO_MEMORIA;
     private final Integer CANTIDAD_SLOT_MEMORIA;
     private final Double PRECIO;
@@ -19,7 +19,7 @@ public enum Motherboards {
         MARCA = marca;
         MODELO = modelo;
         SOCKET = socket;
-        Factor = factor;
+        FACTOR = factor;
         TIPO_MEMORIA = tipoMemoria;
         CANTIDAD_SLOT_MEMORIA = cantidadSlotMemoria;
         PRECIO = precio;
@@ -37,8 +37,8 @@ public enum Motherboards {
         return SOCKET;
     }
 
-    public String getFactor() {
-        return Factor;
+    public String getFACTOR() {
+        return FACTOR;
     }
 
     public String getTIPO_MEMORIA() {
