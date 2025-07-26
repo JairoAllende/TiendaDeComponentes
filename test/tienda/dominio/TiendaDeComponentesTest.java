@@ -198,6 +198,17 @@ public class TiendaDeComponentesTest {
         }
 
         @Test
+        public void dadoQueSeIntentaAgregarMasMotherboardsDeLasSoportadasPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new Motherboard(Motherboards.ASROCK_A520_AM4));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new Motherboard(Motherboards.ASUS_B760M_RAPTOR_LAKE));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new Motherboard(Motherboards.ASUS_X870E_AM5));
+
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(new Motherboard(Motherboards.ASROCK_A520_AM4)));
+
+            assertEquals(exception.getMessage(), "No se pueden almacenar más motherboards. Se alcanzo el limite en el deposito");
+        }
+
+        @Test
         public void dadoQueSeIntentaAgregarUnProcesadorAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
             Componente pruebaComponente = new Procesador(Procesadores.CORE_I3_12100f);
 
