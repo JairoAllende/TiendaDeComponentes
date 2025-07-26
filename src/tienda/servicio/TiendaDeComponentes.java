@@ -8,6 +8,8 @@ import tienda.exceptions.ComponenteNoEncontradoException;
 import tienda.exceptions.PaqueteNoEncontradoException;
 import tienda.exceptions.PrecioInvalidoException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
@@ -128,5 +130,14 @@ public class TiendaDeComponentes {
             throw new PrecioInvalidoException("El monto ingresado: " + nuevoPrecio + " es invalido. El monto debe ser mayor a 0");
         }
 
+    }
+
+    public void aplicarDescuento(Componente componente, String porcentajeDescuento) {
+        BigDecimal precioActual = new BigDecimal(componente.getPrecio().toString());
+        BigDecimal porcentaje = new BigDecimal(porcentajeDescuento);
+        BigDecimal descuento = precioActual.subtract(precioActual.multiply(porcentaje).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP));
+        BigDecimal precioFinal = precioActual.subtract(descuento);
+
+        componente.setPrecio(precioFinal.doubleValue());
     }
 }

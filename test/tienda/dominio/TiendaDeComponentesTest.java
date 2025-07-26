@@ -14,7 +14,6 @@ import tienda.exceptions.ComponenteNoEncontradoException;
 import tienda.exceptions.PaqueteNoEncontradoException;
 import tienda.exceptions.PrecioInvalidoException;
 import tienda.servicio.TiendaDeComponentes;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -342,6 +341,17 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
+    public void dadoQueExisteUnComponenteCuandoLeAplicoUnDescuentoValidoEntoncesElPrecioSeModifica(){
+        tiendaDeComponentes.aplicarDescuento(this.ryzen33200g, "50");
+
+        Double precioAnterior = 85300d;
+        Double precioActual = 42650d;
+
+        assertNotEquals(precioAnterior, this.ryzen33200g.getPrecio());
+        assertEquals(precioActual, this.ryzen33200g.getPrecio());
+    }
+
+    @Test
     public void dadoQueExisteUnPaqueteConComponentesCuandoObtengoLaListaDeComponentesDelPaqueteLosObtengoOrdenadosPorPrecioDescendentementeYPorIdSiEmpatan() throws PaqueteNoEncontradoException {
         Set<Componente> componentesAlPaquete = new HashSet<>();
         LocalDateTime creacionDelPaquete1 = LocalDateTime.of(2025,7,22,18,15,10);
@@ -415,9 +425,7 @@ public class TiendaDeComponentesTest {
                     assertEquals(85300d, componente.getPrecio());
                     contador++;
                 }
-                case 2 -> {
-                    assertEquals(92000d, componente.getPrecio());
-                }
+                case 2 -> assertEquals(92000d, componente.getPrecio());
             }
         }
     }
