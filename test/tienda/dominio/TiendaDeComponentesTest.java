@@ -4,10 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
-import tienda.dominio.enums.Almacenamientos;
-import tienda.dominio.enums.Gabinetes;
-import tienda.dominio.enums.MemoriasRam;
-import tienda.dominio.enums.Procesadores;
+import tienda.dominio.enums.*;
 import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.exceptions.ComponenteNoEncontradoException;
@@ -45,7 +42,6 @@ public class TiendaDeComponentesTest {
         MemoriaRam.resetearContador();
         Procesador.resetearContador();
         Paquete.resetearContador();
-
     }
 
     @Test
@@ -65,7 +61,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnaMotherboard(){
-            Componente pruebaComponenteMotherboard = new Motherboard();
+            Componente pruebaComponenteMotherboard = new Motherboard(Motherboards.ASROCK_A520_AM4);
 
             assertNotNull(pruebaComponenteMotherboard);
         }
