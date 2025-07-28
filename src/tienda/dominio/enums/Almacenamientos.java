@@ -6,7 +6,7 @@ public enum Almacenamientos {
     DISCO_SOLIDO_2TB_ADATA(true, "Solido", "Adata", "SSD ADATA 2TB",2000, 3000, 2000, "USB 3.2", 225800d),
     DISCO_RIGIDO_2TB_SEAGATE(false, "Rigido", "Seagate", "HDD SEAGATE 2TB",2000, 1000, 500, "SATA", 83000d),
     DISCO_SOLIDO_256G_TEAM(false, "Solido", "Team", "SSD TEAM 256GB",256, 520, 430, "SATA", 25000d),
-    DISCO_SOLIDO_1TB_WESTERNDIGITAL(false, "Rigido", "SSD WESTERN DIGITAL 1TB","Western Digital", 1000, 2400, 1850, "NVMe", 71000d),
+    DISCO_SOLIDO_1TB_WESTERNDIGITAL(false, "Rigido", "Western Digital","SSD WESTERN DIGITAL 1TB", 1000, 2400, 1850, "NVMe", 71000d),
     ;
 
     private final Boolean ES_EXTERNO;

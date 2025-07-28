@@ -8,6 +8,7 @@ public class MemoriaRam extends Componente {
     private final Boolean DE_NOTEBOOK;
     private final String TIPO;
     private final String MARCA;
+    private final String MODELO;
     private final Integer CAPACIDAD;
     private final Integer FRECUENCIA;
 
@@ -17,6 +18,7 @@ public class MemoriaRam extends Componente {
         this.DE_NOTEBOOK = memoriasRam.getDE_NOTEBOOK();
         this.TIPO = memoriasRam.getTIPO();
         this.MARCA = memoriasRam.getMARCA();
+        this.MODELO = memoriasRam.getMODELO();
         this.CAPACIDAD = memoriasRam.getCAPACIDAD();
         this.FRECUENCIA = memoriasRam.getFRECUENCIA();
         this.precio = memoriasRam.getPRECIO();
