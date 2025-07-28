@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import tienda.dominio.componentes.*;
 import tienda.dominio.enums.*;
 import tienda.dominio.paquetes.Paquete;
-import tienda.exceptions.CapacidadSuperadaException;
-import tienda.exceptions.ComponenteNoEncontradoException;
-import tienda.exceptions.PaqueteNoEncontradoException;
-import tienda.exceptions.PrecioInvalidoException;
+import tienda.exceptions.*;
 import tienda.servicio.TiendaDeComponentes;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -355,7 +352,7 @@ public class TiendaDeComponentesTest {
     }
 
     @Test
-    public void dadoQueExisteUnComponenteCuandoLeAplicoUnDescuentoValidoEntoncesElPrecioSeModifica(){
+    public void dadoQueExisteUnComponenteCuandoLeAplicoUnDescuentoValidoEntoncesElPrecioSeModifica() throws DescuentoInvalidoException {
         tiendaDeComponentes.aplicarDescuento(this.ryzen33200g, "50");
 
         Double precioAnterior = 85300d;
@@ -363,6 +360,13 @@ public class TiendaDeComponentesTest {
 
         assertNotEquals(precioAnterior, this.ryzen33200g.getPrecio());
         assertEquals(precioActual, this.ryzen33200g.getPrecio());
+    }
+
+    @Test
+    public void dadoQueExisteUnComponenteCuandoIntentoAplicarUnDescuentoInvalidoSeLanzaDescuentoInvalidoException(){
+        Exception exception = assertThrows(DescuentoInvalidoException.class, ()-> tiendaDeComponentes.aplicarDescuento(this.ryzen33200g, "-34"));
+
+        assertEquals(exception.getMessage(), "El descuento de: -34% no es valido");
     }
 
     @Test
@@ -446,35 +450,7 @@ public class TiendaDeComponentesTest {
 
 }
 
-/*✅ 1. Gestión de componentes
-        Quiero poder:
-
-        Agregar un componente nuevo indicando:
-
-        Nombre
-
-        Categoría (por ejemplo: Procesador, Memoria RAM, Placa de video)
-
-        Marca
-
-        Precio
-
-        Listar todos los componentes en el sistema
-
-        Buscar componentes por nombre o categoría
-
-        Eliminar un componente si fue mal cargado
-
-        ✅ 2. Armado de paquetes
-        Quiero poder:
-
-        Crear un paquete con uno o más componentes seleccionados del inventario
-
-        Ver el contenido del paquete (componentes y total en $)
-
-        Guardar el paquete en un archivo .txt (uno por paquete o todos juntos, como prefieras)
-
-        Leer los paquetes guardados desde el archivo
+/*
 
         ✅ 3. Interfaz del sistema
         Quiero un menú de consola claro que me permita elegir acciones fácilmente

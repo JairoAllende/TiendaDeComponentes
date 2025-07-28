@@ -3,10 +3,7 @@ package tienda.servicio;
 import tienda.dominio.comparators.ComparadorPorPrecioAscendente;
 import tienda.dominio.componentes.Componente;
 import tienda.dominio.paquetes.Paquete;
-import tienda.exceptions.CapacidadSuperadaException;
-import tienda.exceptions.ComponenteNoEncontradoException;
-import tienda.exceptions.PaqueteNoEncontradoException;
-import tienda.exceptions.PrecioInvalidoException;
+import tienda.exceptions.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -141,12 +138,19 @@ public class TiendaDeComponentes {
 
     }
 
-    public void aplicarDescuento(Componente componente, String porcentajeDescuento) {
+    public void aplicarDescuento(Componente componente, String porcentajeDescuento) throws DescuentoInvalidoException {
         BigDecimal precioActual = new BigDecimal(componente.getPrecio().toString());
         BigDecimal porcentaje = new BigDecimal(porcentajeDescuento);
-        BigDecimal descuento = precioActual.subtract(precioActual.multiply(porcentaje).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP));
-        BigDecimal precioFinal = precioActual.subtract(descuento);
 
-        componente.setPrecio(precioFinal.doubleValue());
+        if(porcentaje.intValue() > 0 && porcentaje.intValue() <= 100){
+            BigDecimal descuento = precioActual.subtract(precioActual.multiply(porcentaje).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP));
+            BigDecimal precioFinal = precioActual.subtract(descuento);
+            componente.setPrecio(precioFinal.doubleValue());
+        }else {
+            throw new DescuentoInvalidoException("El descuento de: " + porcentajeDescuento +"% no es valido");
+        }
+
+
+
     }
 }
