@@ -27,6 +27,13 @@ public class Almacenamiento extends Componente {
         this.TIPO_DE_CONEXION = almacenamiento.getTIPO_DE_CONEXION();
         this.precio = almacenamiento.getPRECIO();
     }
+    public static void resetearContador(){
+        contador = 0;
+    }
+    @Override
+    public void esAbstracto() {
+
+    }
 
     public Boolean getES_EXTERNO() {
         return ES_EXTERNO;
@@ -60,12 +67,4 @@ public class Almacenamiento extends Componente {
         return TIPO_DE_CONEXION;
     }
 
-    public static void resetearContador(){
-        contador = 0;
-    }
-
-    @Override
-    public void esAbstracto() {
-
-    }
 }

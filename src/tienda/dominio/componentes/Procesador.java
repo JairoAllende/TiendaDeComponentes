@@ -22,6 +22,10 @@ public class Procesador extends Componente {
         this.precio = procesador.getPRECIO();
     }
 
+    @Override
+    public void esAbstracto() {
+
+    }
     public String getMARCA() {
         return MARCA;
     }
@@ -45,8 +49,5 @@ public class Procesador extends Componente {
     public static void resetearContador(){
         contador = 0;
     }
-    @Override
-    public void esAbstracto() {
 
-    }
 }

@@ -26,6 +26,10 @@ public class Gabinete extends Componente {
         this.COLOR = gabinete.getCOLOR();
         this.precio = gabinete.getPRECIO();
     }
+    @Override
+    public void esAbstracto() {
+
+    }
 
     public String getMODELO() {
         return MODELO;
@@ -61,10 +65,5 @@ public class Gabinete extends Componente {
 
     public static void resetearContador(){
         contador = 0;
-    }
-
-    @Override
-    public void esAbstracto() {
-
     }
 }

@@ -24,6 +24,11 @@ public class MemoriaRam extends Componente {
         this.precio = memoriasRam.getPRECIO();
     }
 
+    @Override
+    public void esAbstracto() {
+
+    }
+
     public Boolean getDE_NOTEBOOK() {
         return DE_NOTEBOOK;
     }
@@ -47,8 +52,5 @@ public class MemoriaRam extends Componente {
     public static void resetearContador(){
         contador = 0;
     }
-    @Override
-    public void esAbstracto() {
 
-    }
 }

@@ -24,6 +24,11 @@ public class Motherboard extends Componente {
         this.precio = motherboards.getPRECIO();
     }
 
+    @Override
+    public void esAbstracto() {
+
+    }
+
     public String getMARCA() {
         return MARCA;
     }
@@ -48,8 +53,4 @@ public class Motherboard extends Componente {
         return CANTIDAD_SLOT_MEMORIA;
     }
 
-    @Override
-    public void esAbstracto() {
-
-    }
 }
