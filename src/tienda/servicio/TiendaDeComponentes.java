@@ -18,7 +18,9 @@ public class TiendaDeComponentes {
     private Integer capacidadActualDeGabinetes = 3;
     private Integer capacidadActualDeMemoriasRam = 4;
     private Integer capacidadActualDeMotherBoard = 3;
+    private Integer capacidadActualDePlacasDeVideo = 5;
     private final Set<Paquete> paquetes = new TreeSet<>();
+
 
     //-----------
 
@@ -34,44 +36,58 @@ public class TiendaDeComponentes {
 
     public Boolean agregarUnComponenteAlStock(Componente componente) throws CapacidadSuperadaException {
 
-        switch (componente.getCategoria()){
-            case "Almacenamiento":
-                if (this.capacidadActualDeAlmacenamientos >= 1){
+        switch (componente.getCategoria()) {
+            case "Almacenamiento" -> {
+                if (this.capacidadActualDeAlmacenamientos >= 1) {
                     this.capacidadActualDeAlmacenamientos--;
-                    return  this.stock.get(componente.getCategoria()).add(componente);
-                }else{
+                    return this.stock.get(componente.getCategoria()).add(componente);
+                } else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más unidades de almacenamiento. Se alcanzo el limite en el deposito");
                 }
-            case "Gabinete":
-                if(this.capacidadActualDeGabinetes >= 1){
+            }
+            case "Gabinete" -> {
+                if (this.capacidadActualDeGabinetes >= 1) {
                     this.capacidadActualDeGabinetes--;
-                    return  this.stock.get(componente.getCategoria()).add(componente);
-                }else {
+                    return this.stock.get(componente.getCategoria()).add(componente);
+                } else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más gabinetes. Se alcanzo el limite en el deposito");
                 }
-            case "MemoriaRam":
-                if(this.capacidadActualDeMemoriasRam >= 1){
+            }
+            case "MemoriaRam" -> {
+                if (this.capacidadActualDeMemoriasRam >= 1) {
                     this.capacidadActualDeMemoriasRam--;
                     return this.stock.get(componente.getCategoria()).add(componente);
-                }else{
+                } else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más memorias ram. Se alcanzo el limite en el deposito");
                 }
-            case "Motherboard":
-                if (this.capacidadActualDeMotherBoard >= 1){
+            }
+            case "Motherboard" -> {
+                if (this.capacidadActualDeMotherBoard >= 1) {
                     this.capacidadActualDeMotherBoard--;
                     return this.stock.get(componente.getCategoria()).add(componente);
-                }else{
+                } else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más motherboards. Se alcanzo el limite en el deposito");
                 }
-            case "Procesador":
-                if(this.capacidadActualDeProcesadores >= 1){
+            }
+            case "PlacaDeVideo" -> {
+                if (this.capacidadActualDePlacasDeVideo >= 1){
+                    this.capacidadActualDePlacasDeVideo--;
+                    return  this.stock.get(componente.getCategoria()).add(componente);
+                }else{
+                    throw new CapacidadSuperadaException("No se pueden almacenar más placas de videos. Se alcanzo el limite en el deposito");
+                }
+            }
+            case "Procesador" -> {
+                if (this.capacidadActualDeProcesadores >= 1) {
                     this.capacidadActualDeProcesadores--;
                     return this.stock.get(componente.getCategoria()).add(componente);
-                }else {
+                } else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito");
                 }
-            default:
+            }
+            default -> {
                 return false;
+            }
         }
     }
 

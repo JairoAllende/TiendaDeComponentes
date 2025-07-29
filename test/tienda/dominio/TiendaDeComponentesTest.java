@@ -65,7 +65,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnaPlacaDeVideo(){
-            Componente pruebaComponentePlacaDeVideo = new PlacaDeVideo();
+            Componente pruebaComponentePlacaDeVideo = new PlacaDeVideo(PlacaDeVideos.ASUS_RTX3060_12GB);
 
             assertNotNull(pruebaComponentePlacaDeVideo);
         }
@@ -203,6 +203,26 @@ public class TiendaDeComponentesTest {
             Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(new Motherboard(Motherboards.ASROCK_A520_AM4)));
 
             assertEquals(exception.getMessage(), "No se pueden almacenar más motherboards. Se alcanzo el limite en el deposito");
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarUnaPlacaDeVideoAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+            Boolean componenteAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(new PlacaDeVideo(PlacaDeVideos.MSI_RTX5090_32GB));
+
+            assertTrue(componenteAgregado);
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarMasPlacasDeVideosDeLasSoportadasPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new PlacaDeVideo(PlacaDeVideos.ASROCK_RX550_2GB));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new PlacaDeVideo(PlacaDeVideos.ASROCK_RX550_2GB));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new PlacaDeVideo(PlacaDeVideos.ASROCK_RX550_2GB));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new PlacaDeVideo(PlacaDeVideos.ASROCK_RX9070XT_16GB));
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(new PlacaDeVideo(PlacaDeVideos.ASROCK_RX9070XT_16GB));
+
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(new PlacaDeVideo(PlacaDeVideos.MSI_RTX5090_32GB)));
+
+            assertEquals(exception.getMessage(), "No se pueden almacenar más placas de videos. Se alcanzo el limite en el deposito");
         }
 
         @Test
