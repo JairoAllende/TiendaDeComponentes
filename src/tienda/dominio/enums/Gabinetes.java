@@ -61,4 +61,9 @@ public enum Gabinetes {
     public Double getPRECIO() {
         return PRECIO;
     }
+
+    @Override
+    public String toString() {
+        return MODELO;
+    }
 }

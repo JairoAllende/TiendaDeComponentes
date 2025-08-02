@@ -51,4 +51,9 @@ public enum PlacaDeVideos {
     public Double getPRECIO() {
         return PRECIO;
     }
+
+    @Override
+    public String toString() {
+        return MODELO;
+    }
 }

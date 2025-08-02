@@ -51,4 +51,9 @@ public enum Procesadores {
     public Double getPRECIO(){
         return this.PRECIO;
     }
+
+    @Override
+    public String toString() {
+        return MODELO;
+    }
 }
