@@ -7,6 +7,7 @@ public abstract class Componente {
     protected Double precio;
     protected Integer id;
 
+    public abstract void esAbstracto();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -18,8 +19,6 @@ public abstract class Componente {
     public int hashCode() {
         return Objects.hash(id);
     }
-
-    public abstract void esAbstracto();
 
     public Integer getId() {
         return this.id;
