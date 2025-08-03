@@ -23,8 +23,8 @@ public class Main {
         int opcionIngresada;
         System.out.println("Bienvenido al Gestor de Componentes\nSeleccione una opcion:\n");
         do {
-            for (OpcionesMenu opcion : OpcionesMenu.values()) {
-                System.out.println(opcion.ordinal() + 1 + "- " + opcion.getNombreOpcion());
+            for (OpcionesMenuPrincipal opcion : OpcionesMenuPrincipal.values()) {
+                System.out.println(opcion.ordinal() + 1 + "- " + opcion.getNOMBRE_OPCION());
             }
             System.out.println("Ingrese el numero de la opcion deseada:");
             opcionIngresada = TECLADO.nextInt();
@@ -32,10 +32,18 @@ public class Main {
                 case 1 -> menuAgregarComponente();
                 case 2 -> menuComponentes();
             }
-        }while (opcionIngresada < 1 || opcionIngresada > 3);
+        }while (opcionIngresada < 1 || opcionIngresada > OpcionesMenuPrincipal.values().length);
     }
 
     private static void menuComponentes() {
+        int opcionIngresada;
+        do{
+            for (OpcionesMenuComponentes opcion : OpcionesMenuComponentes.values()){
+                System.out.println(opcion.ordinal() + 1 + "- "+ opcion.getNOMBRE_OPCION());
+            }
+            System.out.println("\nIngrese el numero de la opcion deseada:");
+            opcionIngresada = TECLADO.nextInt();
+        }while (opcionIngresada < 1 || opcionIngresada > OpcionesMenuComponentes.values().length);
     }
 
     private static void menuAgregarComponente(){
