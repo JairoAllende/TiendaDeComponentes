@@ -5,9 +5,7 @@ import tienda.dominio.enums.*;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.servicio.TiendaDeComponentes;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -31,19 +29,9 @@ public class Main {
             switch (opcionIngresada) {
                 case 1 -> menuAgregarComponente();
                 case 2 -> menuComponentes();
+                case 3 -> menuPaquetes();
             }
         }while (opcionIngresada < 1 || opcionIngresada > OpcionesMenuPrincipal.values().length);
-    }
-
-    private static void menuComponentes() {
-        int opcionIngresada;
-        do{
-            for (OpcionesMenuComponentes opcion : OpcionesMenuComponentes.values()){
-                System.out.println(opcion.ordinal() + 1 + "- "+ opcion.getNOMBRE_OPCION());
-            }
-            System.out.println("\nIngrese el numero de la opcion deseada:");
-            opcionIngresada = TECLADO.nextInt();
-        }while (opcionIngresada < 1 || opcionIngresada > OpcionesMenuComponentes.values().length);
     }
 
     private static void menuAgregarComponente(){
@@ -91,6 +79,30 @@ public class Main {
         }
     }
 
+    private static void menuComponentes() {
+        int opcionIngresada;
+        do{
+            System.out.println("Ingrese el numero de la opcion deseada o el Nro. 0 para ir hacia atrás\n");
+            for (OpcionesMenuComponentes opcion : OpcionesMenuComponentes.values()){
+                System.out.println(opcion.ordinal() + 1 + "- "+ opcion.getNOMBRE_OPCION());
+            }
+            opcionIngresada = TECLADO.nextInt();
+            switch (opcionIngresada){
+                case 1 -> buscarComponente();
+                case 2 -> System.out.println("Eliminar componente");
+                case 3 -> System.out.println("Modificar precio");
+                case 4 -> System.out.println("Aplicar descuento");
+            }
+        }while (opcionIngresada < 0 || opcionIngresada > OpcionesMenuComponentes.values().length);
+
+        if(opcionIngresada == 0){
+            menuPrincipal();
+        }
+    }
+
+    private static void menuPaquetes() {
+    }
+
     private static Componente crearComponente(Enum<?> enumComponente) {
         Componente componente = null;
 
@@ -104,5 +116,36 @@ public class Main {
         }
 
         return componente;
+    }
+
+    private static void buscarComponente(){
+        int opcionIngresada = 0;
+        List <Class<? extends Componente>> categoriasComponentes = List.of(
+                Almacenamiento.class,
+                Gabinete.class,
+                MemoriaRam.class,
+                Motherboard.class,
+                PlacaDeVideo.class,
+                Procesador.class,
+                Refrigeracion.class
+        );
+
+        do {
+            System.out.println("Ingrese el numero de la opcion deseada o el Nro. 0 para ir hacia atrás\n");
+            for (Class<? extends Componente> categorias: categoriasComponentes) {
+                System.out.println(++opcionIngresada + "- " + categorias.getSimpleName());
+            }
+            opcionIngresada = TECLADO.nextInt();
+            Set<Componente> componentesPorCategoria = tiendaDeComponentes.buscarComponentesPorCategoria(categoriasComponentes.get(opcionIngresada-1).getSimpleName());
+            for (Componente componente: componentesPorCategoria) {
+                System.out.println("- " + componente);
+            }
+        }while (opcionIngresada < 0 || opcionIngresada > categoriasComponentes.size());
+
+        if(opcionIngresada == 0){
+            menuComponentes();
+        }
+
+
     }
 }
