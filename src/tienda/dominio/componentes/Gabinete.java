@@ -4,7 +4,6 @@ import tienda.dominio.enums.Gabinetes;
 
 public class Gabinete extends Componente {
     private static Integer contador = 0;
-    private final String MODELO;
     private final String FACTOR_MOTHER;
     private final String TAMANIO_GABINETE;
     private final Double ANCHO;
@@ -29,10 +28,6 @@ public class Gabinete extends Componente {
     @Override
     public void esAbstracto() {
 
-    }
-
-    public String getMODELO() {
-        return MODELO;
     }
 
     public String getFACTOR_MOTHER() {

@@ -6,7 +6,6 @@ public class PlacaDeVideo extends Componente {
 
     private final String MARCA;
     private final String GPU;
-    private final String MODELO;
     private final Integer VRAM;
     private final String TIPO_RAM;
     private final Integer CONSUMO_APROX;
@@ -33,10 +32,6 @@ public class PlacaDeVideo extends Componente {
 
     public String getGPU() {
         return GPU;
-    }
-
-    public String getMODELO() {
-        return MODELO;
     }
 
     public Integer getVRAM() {

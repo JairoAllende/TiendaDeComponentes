@@ -166,7 +166,5 @@ public class TiendaDeComponentes {
             throw new DescuentoInvalidoException("El descuento de: " + porcentajeDescuento +"% no es valido");
         }
 
-
-
     }
 }

@@ -19,12 +19,11 @@ public class Main {
 
     private static void menuPrincipal(){
         int opcionIngresada;
-        System.out.println("Bienvenido al Gestor de Componentes\nSeleccione una opcion:\n");
+        System.out.println("Bienvenido al Gestor de Componentes\nIngrese el numero de la opcion deseada:\n");
         do {
             for (OpcionesMenuPrincipal opcion : OpcionesMenuPrincipal.values()) {
                 System.out.println(opcion.ordinal() + 1 + "- " + opcion.getNOMBRE_OPCION());
             }
-            System.out.println("Ingrese el numero de la opcion deseada:");
             opcionIngresada = TECLADO.nextInt();
             switch (opcionIngresada) {
                 case 1 -> menuAgregarComponente();
@@ -68,6 +67,7 @@ public class Main {
                 try {
                     tiendaDeComponentes.agregarUnComponenteAlStock(componente);
                     System.out.println("Se agrego el " + componentes.get(opcionIngresada).toString() + " al stock");
+                    menuAgregarComponente();
                 } catch (CapacidadSuperadaException e) {
                     throw new RuntimeException(e);
                 }
@@ -138,7 +138,7 @@ public class Main {
             opcionIngresada = TECLADO.nextInt();
             Set<Componente> componentesPorCategoria = tiendaDeComponentes.buscarComponentesPorCategoria(categoriasComponentes.get(opcionIngresada-1).getSimpleName());
             for (Componente componente: componentesPorCategoria) {
-                System.out.println("- " + componente);
+                System.out.println("- " + componente.getMODELO());
             }
         }while (opcionIngresada < 0 || opcionIngresada > categoriasComponentes.size());
 

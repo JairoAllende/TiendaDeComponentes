@@ -7,7 +7,10 @@ public abstract class Componente {
     protected Double precio;
     protected Integer id;
 
+    protected String MODELO;
+
     public abstract void esAbstracto();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -15,6 +18,7 @@ public abstract class Componente {
         Componente that = (Componente) o;
         return Objects.equals(id, that.id);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
@@ -36,5 +40,5 @@ public abstract class Componente {
         return this.getClass().getSimpleName();
     }
 
-
+    public String getMODELO(){return this.MODELO;}
 }

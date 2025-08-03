@@ -6,7 +6,6 @@ public class Motherboard extends Componente {
 
     private static Integer contador = 0;
     private final String MARCA;
-    private final String MODELO;
     private final String SOCKET;
     private final String FACTOR;
     private final String TIPO_MEMORIA;
@@ -31,10 +30,6 @@ public class Motherboard extends Componente {
 
     public String getMARCA() {
         return MARCA;
-    }
-
-    public String getMODELO() {
-        return MODELO;
     }
 
     public String getSOCKET() {

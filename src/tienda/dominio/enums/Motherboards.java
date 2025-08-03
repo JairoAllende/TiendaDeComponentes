@@ -3,8 +3,8 @@ package tienda.dominio.enums;
 public enum Motherboards {
 
     ASROCK_A520_AM4("AMD", "Asrcok A520M-HDV AM4", "AM4", "M-ATX", "DDR4", 2, 76000d),
-    ASUS_X870E_AM5("AMD", "Asus", "AM5", "ATX", "DDR5", 4, 1120550d),
-    ASUS_B760M_RAPTOR_LAKE("Intel", "ASUS", "1700 Raptor Lake", "M-ATX","DDR5", 4, 210400d);
+    ASUS_X870E_AM5("AMD", "Asus X870E AM5", "AM5", "ATX", "DDR5", 4, 1120550d),
+    ASUS_B760M_RAPTOR_LAKE("Intel", "ASUS B760M Raptor Lake", "1700 Raptor Lake", "M-ATX","DDR5", 4, 210400d);
     ;
 
     private final String MARCA;

@@ -8,7 +8,6 @@ public class MemoriaRam extends Componente {
     private final Boolean DE_NOTEBOOK;
     private final String TIPO;
     private final String MARCA;
-    private final String MODELO;
     private final Integer CAPACIDAD;
     private final Integer FRECUENCIA;
 

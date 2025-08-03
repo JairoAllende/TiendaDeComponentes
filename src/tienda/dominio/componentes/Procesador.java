@@ -6,7 +6,6 @@ public class Procesador extends Componente {
 
     private static int contador = 0;
     private final String MARCA;
-    private final String MODELO;
     private final Integer HILOS;
     private final Double FRECUENCIA_BASE;
     private final Double FRECUENCIA_TURBO;
@@ -28,10 +27,6 @@ public class Procesador extends Componente {
     }
     public String getMARCA() {
         return MARCA;
-    }
-
-    public String getMODELO() {
-        return MODELO;
     }
 
     public Integer getHILOS() {
