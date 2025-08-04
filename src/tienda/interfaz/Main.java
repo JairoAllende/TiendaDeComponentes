@@ -13,9 +13,7 @@ public class Main {
     private static final TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
 
     public static void main(String[] args){
-        //Completar el nombre de MODELO en gabinetes
-        // manejar la excepcion de CapacidadSuperadaException
-        //Continuar flujo al mostrar componentes
+
         menuPrincipal();
     }
 
@@ -127,6 +125,9 @@ public class Main {
             try{
                 Set<Componente> componentesPorCategoria = tiendaDeComponentes.buscarComponentesPorCategoria(categoriasComponentes.get(opcionIngresada-1).getSimpleName());
                 System.out.println("Componentes en stock: ");
+                if(componentesPorCategoria.isEmpty()){
+                    System.out.println("No hay componentes de la categoria " + categoriasComponentes.get(opcionIngresada-1).getSimpleName());
+                }
                 for (Componente componente: componentesPorCategoria) {
                     System.out.println("- " + componente.getMODELO());
                 }
@@ -142,8 +143,6 @@ public class Main {
             }
 
         }while (opcionIngresada < 0 || opcionIngresada > categoriasComponentes.size());
-
-
     }
 
     private static Componente crearComponente(Enum<?> enumComponente) {
