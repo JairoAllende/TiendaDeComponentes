@@ -13,7 +13,9 @@ public class Main {
     private static final TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
 
     public static void main(String[] args){
-
+        //Completar el nombre de MODELO en gabinetes
+        // manejar la excepcion de CapacidadSuperadaException
+        //Continuar flujo al mostrar componentes
         menuPrincipal();
     }
 
@@ -69,7 +71,8 @@ public class Main {
                     System.out.println("Se agrego el " + componentes.get(opcionIngresada).toString() + " al stock");
                     menuAgregarComponente();
                 } catch (CapacidadSuperadaException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("\n" + e.getMessage() +"\n");
+                    menuAgregarComponente();
                 }
             }
         }while (opcionIngresada < 0 || opcionIngresada > indiceOpciones);
@@ -103,21 +106,6 @@ public class Main {
     private static void menuPaquetes() {
     }
 
-    private static Componente crearComponente(Enum<?> enumComponente) {
-        Componente componente = null;
-
-        switch (enumComponente.getClass().getSimpleName()){
-            case "Almacenamientos" -> componente = new Almacenamiento((Almacenamientos) enumComponente);
-            case "Gabinetes" -> componente =  new Gabinete((Gabinetes) enumComponente);
-            case "MemoriasRam" -> componente =  new MemoriaRam((MemoriasRam) enumComponente);
-            case "Motherboards" -> componente =  new Motherboard((Motherboards) enumComponente);
-            case "PlacaDeVideos" -> componente =  new PlacaDeVideo((PlacaDeVideos) enumComponente);
-            case "Procesadores" -> componente =  new Procesador((Procesadores) enumComponente);
-        }
-
-        return componente;
-    }
-
     private static void buscarComponente(){
         int opcionIngresada = 0;
         List <Class<? extends Componente>> categoriasComponentes = List.of(
@@ -136,16 +124,42 @@ public class Main {
                 System.out.println(++opcionIngresada + "- " + categorias.getSimpleName());
             }
             opcionIngresada = TECLADO.nextInt();
-            Set<Componente> componentesPorCategoria = tiendaDeComponentes.buscarComponentesPorCategoria(categoriasComponentes.get(opcionIngresada-1).getSimpleName());
-            for (Componente componente: componentesPorCategoria) {
-                System.out.println("- " + componente.getMODELO());
+            try{
+                Set<Componente> componentesPorCategoria = tiendaDeComponentes.buscarComponentesPorCategoria(categoriasComponentes.get(opcionIngresada-1).getSimpleName());
+                System.out.println("Componentes en stock: ");
+                for (Componente componente: componentesPorCategoria) {
+                    System.out.println("- " + componente.getMODELO());
+                }
+                do {
+                    System.out.println("\nIngrese 0 para ir hacia atrás:");
+                    opcionIngresada = TECLADO.nextInt();
+                    if(opcionIngresada == 0){
+                        buscarComponente();
+                    }
+                }while (opcionIngresada != 0);
+            }catch (ArrayIndexOutOfBoundsException e){
+                menuComponentes();
             }
-        }while (opcionIngresada < 0 || opcionIngresada > categoriasComponentes.size());
 
-        if(opcionIngresada == 0){
-            menuComponentes();
-        }
+        }while (opcionIngresada < 0 || opcionIngresada > categoriasComponentes.size());
 
 
     }
+
+    private static Componente crearComponente(Enum<?> enumComponente) {
+        Componente componente = null;
+
+        switch (enumComponente.getClass().getSimpleName()){
+            case "Almacenamientos" -> componente = new Almacenamiento((Almacenamientos) enumComponente);
+            case "Gabinetes" -> componente =  new Gabinete((Gabinetes) enumComponente);
+            case "MemoriasRam" -> componente =  new MemoriaRam((MemoriasRam) enumComponente);
+            case "Motherboards" -> componente =  new Motherboard((Motherboards) enumComponente);
+            case "PlacaDeVideos" -> componente =  new PlacaDeVideo((PlacaDeVideos) enumComponente);
+            case "Procesadores" -> componente =  new Procesador((Procesadores) enumComponente);
+        }
+
+        return componente;
+    }
+
+
 }
