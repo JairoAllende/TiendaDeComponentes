@@ -124,13 +124,16 @@ public class Main {
             opcionIngresada = TECLADO.nextInt();
             try{
                 Set<Componente> componentesPorCategoria = tiendaDeComponentes.buscarComponentesPorCategoria(categoriasComponentes.get(opcionIngresada-1).getSimpleName());
-                System.out.println("Componentes en stock: ");
+
                 if(componentesPorCategoria.isEmpty()){
-                    System.out.println("No hay componentes de la categoria " + categoriasComponentes.get(opcionIngresada-1).getSimpleName());
+                    System.err.println("No hay componentes de la categoria " + categoriasComponentes.get(opcionIngresada-1).getSimpleName());
+                }else {
+                    System.out.println("Componentes en stock: ");
+                    for (Componente componente: componentesPorCategoria) {
+                        System.out.println("- " + componente.getMODELO());
+                    }
                 }
-                for (Componente componente: componentesPorCategoria) {
-                    System.out.println("- " + componente.getMODELO());
-                }
+
                 do {
                     System.out.println("\nIngrese 0 para ir hacia atrás:");
                     opcionIngresada = TECLADO.nextInt();
