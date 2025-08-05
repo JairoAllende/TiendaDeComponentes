@@ -3,6 +3,7 @@ package tienda.interfaz;
 import tienda.dominio.componentes.*;
 import tienda.dominio.enums.*;
 import tienda.exceptions.CapacidadSuperadaException;
+import tienda.exceptions.ComponenteNoEncontradoException;
 import tienda.servicio.TiendaDeComponentes;
 
 import java.util.*;
@@ -90,7 +91,7 @@ public class Main {
             opcionIngresada = TECLADO.nextInt();
             switch (opcionIngresada){
                 case 1 -> buscarComponente();
-                case 2 -> System.out.println("Eliminar componente");
+                case 2 -> eliminarComponente();
                 case 3 -> System.out.println("Modificar precio");
                 case 4 -> System.out.println("Aplicar descuento");
             }
@@ -130,7 +131,7 @@ public class Main {
                 }else {
                     System.out.println("Componentes en stock: ");
                     for (Componente componente: componentesPorCategoria) {
-                        System.out.println("- " + componente.getMODELO());
+                        System.out.println("- " + componente.toString());
                     }
                 }
 
@@ -163,5 +164,42 @@ public class Main {
         return componente;
     }
 
+    private static void eliminarComponente(){
+        int opcionCategoria = 0;
+        int opcionId = 0;
+        List <Class<? extends Componente>> categoriasComponentes = List.of(
+                Almacenamiento.class,
+                Gabinete.class,
+                MemoriaRam.class,
+                Motherboard.class,
+                PlacaDeVideo.class,
+                Procesador.class,
+                Refrigeracion.class
+        );
 
+        System.out.println("Ingrese el numero de la categoria del componente que desea eliminar o el Nro. 0 para ir hacia atrás\n");
+        for (Class<? extends Componente> categorias: categoriasComponentes) {
+            System.out.println(++opcionCategoria + "- " + categorias.getSimpleName());
+        }
+
+        opcionCategoria = TECLADO.nextInt();
+        if(opcionCategoria == 0){
+            menuComponentes();
+        }else {
+            //Arreglar el flujo
+            try {
+                System.out.println("Ingrese el id del componente que desea eliminar");
+                opcionId = TECLADO.nextInt();
+                Boolean componenteEliminado = tiendaDeComponentes.eliminarComponenteDeStock(categoriasComponentes.get(opcionCategoria-1).getSimpleName(), opcionId);
+                if (componenteEliminado){
+                    System.out.println("Se elimino el componente de la categoria " + categoriasComponentes.get(opcionCategoria-1).getSimpleName() + " con el " + opcionId);
+                }
+            }catch (ComponenteNoEncontradoException e) {
+                System.err.println(e.getMessage() + "\n");
+                eliminarComponente();
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.err.println("Ingrese una opcion valida");
+            }
+        }
+    }
 }

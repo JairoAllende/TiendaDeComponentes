@@ -24,6 +24,14 @@ public abstract class Componente {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return "Componente{" +
+                "id=" + id +
+                ", MODELO='" + MODELO + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return this.id;
     }
