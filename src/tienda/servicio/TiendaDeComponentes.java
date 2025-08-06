@@ -1,7 +1,7 @@
 package tienda.servicio;
 
 import tienda.dominio.comparators.ComparadorPorPrecioAscendente;
-import tienda.dominio.componentes.Componente;
+import tienda.dominio.componentes.*;
 import tienda.dominio.paquetes.Paquete;
 import tienda.exceptions.*;
 
@@ -166,5 +166,17 @@ public class TiendaDeComponentes {
             throw new DescuentoInvalidoException("El descuento de: " + porcentajeDescuento +"% no es valido");
         }
 
+    }
+
+    public List<Class<? extends Componente>> obtenerCategoriasDeComponentes() {
+        return List.of(
+                Almacenamiento.class,
+                Gabinete.class,
+                MemoriaRam.class,
+                Motherboard.class,
+                PlacaDeVideo.class,
+                Procesador.class,
+                Refrigeracion.class
+        );
     }
 }

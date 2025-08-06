@@ -107,15 +107,7 @@ public class Main {
 
     private static void buscarComponente(){
         int opcionIngresada = 0;
-        List <Class<? extends Componente>> categoriasComponentes = List.of(
-                Almacenamiento.class,
-                Gabinete.class,
-                MemoriaRam.class,
-                Motherboard.class,
-                PlacaDeVideo.class,
-                Procesador.class,
-                Refrigeracion.class
-        );
+        List <Class<? extends Componente>> categoriasComponentes = tiendaDeComponentes.obtenerCategoriasDeComponentes();
 
         do {
             System.out.println("Ingrese el numero de la opcion deseada o el Nro. 0 para ir hacia atrás\n");
@@ -167,15 +159,7 @@ public class Main {
     private static void eliminarComponente(){
         int opcionCategoria = 0;
         int opcionId = 0;
-        List <Class<? extends Componente>> categoriasComponentes = List.of(
-                Almacenamiento.class,
-                Gabinete.class,
-                MemoriaRam.class,
-                Motherboard.class,
-                PlacaDeVideo.class,
-                Procesador.class,
-                Refrigeracion.class
-        );
+        List <Class<? extends Componente>> categoriasComponentes = tiendaDeComponentes.obtenerCategoriasDeComponentes();
 
         System.out.println("Ingrese el numero de la categoria del componente que desea eliminar o el Nro. 0 para ir hacia atrás\n");
         for (Class<? extends Componente> categorias: categoriasComponentes) {
@@ -183,13 +167,14 @@ public class Main {
         }
 
         opcionCategoria = TECLADO.nextInt();
+
         if(opcionCategoria == 0){
             menuComponentes();
         }
 
         if(opcionCategoria > categoriasComponentes.size() || opcionCategoria < 0){
             System.err.println("Ingrese una opcion correcta\n");
-            menuComponentes(); //Crear una funcion de mostrarComponentes() en tienda componente para mejorar el flujo
+            eliminarComponente();
         }
 
         try {

@@ -10,6 +10,7 @@ import tienda.exceptions.*;
 import tienda.servicio.TiendaDeComponentes;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -247,6 +248,23 @@ public class TiendaDeComponentesTest {
 
             assertEquals("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito", exception.getMessage());
         }
+    }
+
+    @Test
+    public void dadoQuExistenComponentesDeDiferentesCategoriasObtengoUnaListaDeClasesDeComponenteDeCadaCategoria(){
+        List<Class<? extends Componente>> categoriasComponentes = List.of(
+                Almacenamiento.class,
+                Gabinete.class,
+                MemoriaRam.class,
+                Motherboard.class,
+                PlacaDeVideo.class,
+                Procesador.class,
+                Refrigeracion.class
+        );
+
+        List<Class <? extends Componente>> componentesObtenidos = tiendaDeComponentes.obtenerCategoriasDeComponentes();
+
+        assertEquals(categoriasComponentes, componentesObtenidos);
     }
 
     @Test
