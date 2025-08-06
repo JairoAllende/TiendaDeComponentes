@@ -185,21 +185,25 @@ public class Main {
         opcionCategoria = TECLADO.nextInt();
         if(opcionCategoria == 0){
             menuComponentes();
-        }else {
-            //Arreglar el flujo
-            try {
-                System.out.println("Ingrese el id del componente que desea eliminar");
-                opcionId = TECLADO.nextInt();
-                Boolean componenteEliminado = tiendaDeComponentes.eliminarComponenteDeStock(categoriasComponentes.get(opcionCategoria-1).getSimpleName(), opcionId);
-                if (componenteEliminado){
-                    System.out.println("Se elimino el componente de la categoria " + categoriasComponentes.get(opcionCategoria-1).getSimpleName() + " con el " + opcionId);
-                }
-            }catch (ComponenteNoEncontradoException e) {
-                System.err.println(e.getMessage() + "\n");
-                eliminarComponente();
-            }catch (ArrayIndexOutOfBoundsException e){
-                System.err.println("Ingrese una opcion valida");
+        }
+
+        if(opcionCategoria > categoriasComponentes.size() || opcionCategoria < 0){
+            System.err.println("Ingrese una opcion correcta\n");
+            menuComponentes(); //Crear una funcion de mostrarComponentes() en tienda componente para mejorar el flujo
+        }
+
+        try {
+            System.out.println("Ingrese el id del componente que desea eliminar");
+            opcionId = TECLADO.nextInt();
+            Boolean componenteEliminado = tiendaDeComponentes.eliminarComponenteDeStock(categoriasComponentes.get(opcionCategoria-1).getSimpleName(), opcionId);
+            if (componenteEliminado){
+                System.out.println("Se elimino el componente de la categoria " + categoriasComponentes.get(opcionCategoria-1).getSimpleName() + " con el " + opcionId);
             }
+        }catch (ComponenteNoEncontradoException e) {
+            System.err.println(e.getMessage() + "\n");
+            eliminarComponente();
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Ingrese una opcion valida");
         }
     }
 }
