@@ -123,9 +123,6 @@ public class Main {
         }
     }
 
-    private static void menuPaquetes() {
-    }
-
     private static void buscarComponente(){
         int opcionIngresada = 0;
         List <Class<? extends Componente>> categoriasComponentes = mostrarListaCategoriasDeComponentes(opcionIngresada);
@@ -199,5 +196,8 @@ public class Main {
         }
 
         return categoriasComponentes;
+    }
+
+    private static void menuPaquetes() {
     }
 }
