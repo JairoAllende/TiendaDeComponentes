@@ -109,13 +109,9 @@ public class Main {
 
     private static void buscarComponente(){
         int opcionIngresada = 0;
-        List <Class<? extends Componente>> categoriasComponentes = tiendaDeComponentes.obtenerCategoriasDeComponentes();
+        List <Class<? extends Componente>> categoriasComponentes = mostrarListaCategoriasDeComponentes(opcionIngresada);
 
         do {
-            System.out.println("Ingrese el numero de la opcion deseada o el Nro. 0 para ir hacia atrás\n");
-            for (Class<? extends Componente> categorias: categoriasComponentes) {
-                System.out.println(++opcionIngresada + "- " + categorias.getSimpleName());
-            }
             opcionIngresada = TECLADO.nextInt();
             try{
                 Set<Componente> componentesPorCategoria = tiendaDeComponentes.buscarComponentesPorCategoria(categoriasComponentes.get(opcionIngresada-1).getSimpleName());
@@ -165,13 +161,8 @@ public class Main {
 
     private static void eliminarComponente(){
         int opcionCategoria = 0;
-        int opcionId = 0;
-        List <Class<? extends Componente>> categoriasComponentes = tiendaDeComponentes.obtenerCategoriasDeComponentes();
-
-        System.out.println("Ingrese el numero de la categoria del componente que desea eliminar o el Nro. 0 para ir hacia atrás\n");
-        for (Class<? extends Componente> categorias: categoriasComponentes) {
-            System.out.println(++opcionCategoria + "- " + categorias.getSimpleName());
-        }
+        int opcionId;
+        List <Class<? extends Componente>> categoriasComponentes = mostrarListaCategoriasDeComponentes(opcionCategoria);
 
         opcionCategoria = TECLADO.nextInt();
 
@@ -189,7 +180,8 @@ public class Main {
             opcionId = TECLADO.nextInt();
             Boolean componenteEliminado = tiendaDeComponentes.eliminarComponenteDeStock(categoriasComponentes.get(opcionCategoria-1).getSimpleName(), opcionId);
             if (componenteEliminado){
-                System.out.println("Se elimino el componente de la categoria " + categoriasComponentes.get(opcionCategoria-1).getSimpleName() + " con el " + opcionId);
+                System.out.println("Se elimino el componente de la categoria " + categoriasComponentes.get(opcionCategoria-1).getSimpleName() + " con el Id:" + opcionId + "\n");
+                eliminarComponente();
             }
         }catch (ComponenteNoEncontradoException e) {
             System.err.println(e.getMessage() + "\n");
@@ -197,5 +189,16 @@ public class Main {
         }catch (ArrayIndexOutOfBoundsException e){
             System.err.println("Ingrese una opcion valida");
         }
+    }
+
+    private static List <Class<? extends Componente>> mostrarListaCategoriasDeComponentes(Integer opcionCategoria){
+        List <Class<? extends Componente>> categoriasComponentes = tiendaDeComponentes.obtenerCategoriasDeComponentes();
+
+        System.out.println("Ingrese el numero de la categoria del componente que desea eliminar o el Nro. 0 para ir hacia atrás\n");
+        for (Class<? extends Componente> categorias: categoriasComponentes) {
+            System.out.println(++opcionCategoria + "- " + categorias.getSimpleName());
+        }
+
+        return categoriasComponentes;
     }
 }
