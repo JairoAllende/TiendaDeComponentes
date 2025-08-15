@@ -83,6 +83,25 @@ public class Main {
         }
     }
 
+    private static Componente crearComponente(Enum<?> enumComponente) {
+        Componente componente = null;
+
+        try{
+            switch (enumComponente.getClass().getSimpleName()){
+                case "Almacenamientos" -> componente = new Almacenamiento((Almacenamientos) enumComponente);
+                case "Gabinetes" -> componente =  new Gabinete((Gabinetes) enumComponente);
+                case "MemoriasRam" -> componente =  new MemoriaRam((MemoriasRam) enumComponente);
+                case "Motherboards" -> componente =  new Motherboard((Motherboards) enumComponente);
+                case "PlacaDeVideos" -> componente =  new PlacaDeVideo((PlacaDeVideos) enumComponente);
+                case "Procesadores" -> componente =  new Procesador((Procesadores) enumComponente);
+            }
+        }catch (NullPointerException e){
+            System.err.println("Ingrese una opción valida\n");
+        }
+
+        return componente;
+    }
+
     private static void menuComponentes() {
         int opcionIngresada;
         do{
@@ -137,26 +156,6 @@ public class Main {
             }
 
         }while (opcionIngresada < 0 || opcionIngresada > categoriasComponentes.size());
-    }
-
-    private static Componente crearComponente(Enum<?> enumComponente) {
-        Componente componente = null;
-
-        try{
-            switch (enumComponente.getClass().getSimpleName()){
-                case "Almacenamientos" -> componente = new Almacenamiento((Almacenamientos) enumComponente);
-                case "Gabinetes" -> componente =  new Gabinete((Gabinetes) enumComponente);
-                case "MemoriasRam" -> componente =  new MemoriaRam((MemoriasRam) enumComponente);
-                case "Motherboards" -> componente =  new Motherboard((Motherboards) enumComponente);
-                case "PlacaDeVideos" -> componente =  new PlacaDeVideo((PlacaDeVideos) enumComponente);
-                case "Procesadores" -> componente =  new Procesador((Procesadores) enumComponente);
-            }
-        }catch (NullPointerException e){
-            System.err.println("Ingrese una opción valida\n");
-        }
-
-
-        return componente;
     }
 
     private static void eliminarComponente(){
