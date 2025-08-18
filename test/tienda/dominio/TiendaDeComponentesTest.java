@@ -86,7 +86,7 @@ public class TiendaDeComponentesTest {
 
         @Test
         public void queSePuedaCrearUnaRefrigeracion(){
-            Componente pruebaComponenteRefrigeracion = new Refrigeracion();
+            Componente pruebaComponenteRefrigeracion = new Refrigeracion(Refrigeraciones.BEQUIET_LIGHTWINGS_140MM);
 
             assertNotNull(pruebaComponenteRefrigeracion);
         }

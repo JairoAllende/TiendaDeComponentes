@@ -6,7 +6,6 @@ public abstract class Componente {
     //Hacer una lista de precios para obtenerla desde el enum?
     protected Double precio;
     protected Integer id;
-
     protected String MODELO;
 
     public abstract void esAbstracto();
