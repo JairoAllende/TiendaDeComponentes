@@ -21,9 +21,6 @@ public class TiendaDeComponentes {
     private Integer capacidadActualDePlacasDeVideo = 5;
     private final Set<Paquete> paquetes = new TreeSet<>();
 
-
-    //-----------
-
     public TiendaDeComponentes(){
         this.stock.put("Almacenamiento", new HashSet<>());
         this.stock.put("Gabinete", new HashSet<>());
@@ -94,6 +91,18 @@ public class TiendaDeComponentes {
     //Cambiar después el parametro con un enum?
     public Set<Componente> buscarComponentesPorCategoria(String componente) {
         return this.stock.get(componente);
+    }
+
+    public Componente buscarComponente(String categoria, Integer id) throws ComponenteNoEncontradoException {
+        Set<Componente> componentes = buscarComponentesPorCategoria(categoria);
+
+        for (Componente componente: componentes) {
+            if(componente.getId().equals(id)){
+                return componente;
+            }
+        }
+
+        throw new ComponenteNoEncontradoException("No se ha encontrado ningún componente con ese Id");
     }
 
     public Boolean eliminarComponenteDeStock(String categoriaComponente, Integer idComponente) throws ComponenteNoEncontradoException {
@@ -179,4 +188,5 @@ public class TiendaDeComponentes {
                 Refrigeracion.class
         );
     }
+
 }

@@ -4,6 +4,7 @@ import tienda.dominio.componentes.*;
 import tienda.dominio.enums.*;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.exceptions.ComponenteNoEncontradoException;
+import tienda.exceptions.PrecioInvalidoException;
 import tienda.servicio.TiendaDeComponentes;
 
 import java.util.*;
@@ -14,7 +15,7 @@ public class Main {
     private static final TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
 
     public static void main(String[] args){
-
+        //Seguir con el menu para modificar el precio
         menuPrincipal();
     }
 
@@ -113,7 +114,7 @@ public class Main {
             switch (opcionIngresada){
                 case 1 -> buscarComponente();
                 case 2 -> eliminarComponente();
-                case 3 -> System.out.println("Modificar precio");
+                case 3 -> modificarPrecioComponente();
                 case 4 -> System.out.println("Aplicar descuento");
             }
         }while (opcionIngresada < 0 || opcionIngresada > OpcionesMenuComponentes.values().length);
@@ -187,10 +188,63 @@ public class Main {
         }
     }
 
+    private static void modificarPrecioComponente(){
+        int opcionCategoria = 0;
+        List <Class<? extends Componente>> categoriasComponentes = mostrarListaCategoriasDeComponentes(opcionCategoria);
+
+        opcionCategoria = TECLADO.nextInt();
+
+        if (opcionCategoria == 0){
+            menuComponentes();
+        }
+
+        if(opcionCategoria > categoriasComponentes.size() || opcionCategoria < 0){
+            System.err.println("Ingrese una opcion correcta\n");
+            eliminarComponente();
+        }
+
+        try {
+            int opcionId;
+            double precioComponente;
+            System.out.println("Ingrese el id del componente:");
+
+            opcionId = TECLADO.nextInt();
+            Componente componente = tiendaDeComponentes.buscarComponente(categoriasComponentes.get(opcionCategoria-1).getSimpleName(), opcionId);
+
+            System.out.println("Ingrese el nuevo precio del componente: ");
+            precioComponente = TECLADO.nextDouble();
+
+            tiendaDeComponentes.modificarPrecio(componente, precioComponente);
+
+            System.out.println("El precio del componente: " + componente + " se modifico correctamente. Precio actual " + componente.getPrecio() + "$\n");
+
+            do {
+                System.out.println("Ingrese 1 para modificar otro precio o 0 para ir al menu de Componentes");
+                opcionId = TECLADO.nextInt();
+
+                if (opcionId == 1){
+                    modificarPrecioComponente();
+                }
+
+                if(opcionId == 0){
+                    menuComponentes();
+                }
+            }while (opcionId != 1 && opcionId != 0);
+        }catch (ComponenteNoEncontradoException e) {
+            System.err.println(e.getMessage() + "\n");
+            modificarPrecioComponente();
+        }catch (PrecioInvalidoException e){
+            System.err.println(e.getMessage() + " \n");
+            modificarPrecioComponente();
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Ingrese una opcion valida");
+        }
+    }
+
     private static List <Class<? extends Componente>> mostrarListaCategoriasDeComponentes(Integer opcionCategoria){
         List <Class<? extends Componente>> categoriasComponentes = tiendaDeComponentes.obtenerCategoriasDeComponentes();
 
-        System.out.println("Ingrese el numero de la categoria del componente que desea eliminar o el Nro. 0 para ir hacia atrás\n");
+        System.out.println("Ingrese el numero de la categoria del componente o el Nro. 0 para ir hacia atrás\n");
         for (Class<? extends Componente> categorias: categoriasComponentes) {
             System.out.println(++opcionCategoria + "- " + categorias.getSimpleName());
         }

@@ -25,7 +25,6 @@ public class TiendaDeComponentesTest {
     private Componente ssd256;
     private Componente hdd2;
 
-
     @BeforeEach
     public void init(){
         this.tiendaDeComponentes = new TiendaDeComponentes();
@@ -289,6 +288,20 @@ public class TiendaDeComponentesTest {
         Boolean componenteEliminado = this.tiendaDeComponentes.eliminarComponenteDeStock("Procesador", 1);
 
         assertTrue(componenteEliminado);
+    }
+
+    @Test
+    public void dadoQueSeBuscaUnComponenteEnEspecificoCuandoIngresoLaCategoriaYElIdObtengoElComponente() throws CapacidadSuperadaException, ComponenteNoEncontradoException {
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.ssd256);
+        this.tiendaDeComponentes.agregarUnComponenteAlStock(this.hdd2);
+
+        Componente componenteBuscado1 = this.tiendaDeComponentes.buscarComponente("Almacenamiento", 0);
+        Componente componenteBuscado2 = this.tiendaDeComponentes.buscarComponente("Almacenamiento", 1);
+
+        assertEquals(0, componenteBuscado1.getId());
+        assertEquals("SSD TEAM 256GB", componenteBuscado1.getMODELO());
+        assertEquals(1, componenteBuscado2.getId());
+        assertEquals("HDD SEAGATE 2TB", componenteBuscado2.getMODELO());
     }
 
     @Test
