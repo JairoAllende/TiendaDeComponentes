@@ -19,6 +19,7 @@ public class TiendaDeComponentes {
     private Integer capacidadActualDeMemoriasRam = 4;
     private Integer capacidadActualDeMotherBoard = 3;
     private Integer capacidadActualDePlacasDeVideo = 5;
+    private Integer capacidadActualDeRefrigeraciones = 4;
     private final Set<Paquete> paquetes = new TreeSet<>();
 
     public TiendaDeComponentes(){
@@ -80,6 +81,14 @@ public class TiendaDeComponentes {
                     return this.stock.get(componente.getCategoria()).add(componente);
                 } else {
                     throw new CapacidadSuperadaException("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito");
+                }
+            }
+            case "Refrigeracion" ->{
+                if(this.capacidadActualDeRefrigeraciones >= 1){
+                    this.capacidadActualDeRefrigeraciones--;
+                    return this.stock.get(componente.getCategoria()).add(componente);
+                }else {
+                    throw new CapacidadSuperadaException("No se pueden almacenar más Refrigeraciones. Se alcanzo el limite en el deposito");
                 }
             }
             default -> {

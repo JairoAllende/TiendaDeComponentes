@@ -247,6 +247,32 @@ public class TiendaDeComponentesTest {
 
             assertEquals("No se pueden almacenar más Procesadores. Se alcanzo el limite en el deposito", exception.getMessage());
         }
+        @Test
+        public void dadoQueSeIntentaAgregarUnaRefrigeracionAlStockCuandoLoHagoObtengoUnResultadoPositivo() throws CapacidadSuperadaException {
+            Componente pruebaComponente = new Refrigeracion(Refrigeraciones.ASUS_ROG_STRIX_WHITE);
+
+            Boolean procesadorAgregado = this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente);
+
+            assertTrue(procesadorAgregado);
+        }
+
+        @Test
+        public void dadoQueSeIntentaAgregarMasRefrigeracionesDeLasSoportadasPorLaCapacidadActualDeAlmacenamientoSeLanzaUnCapacidadSuperadaException() throws CapacidadSuperadaException {
+            Componente pruebaComponente1 = new Refrigeracion(Refrigeraciones.IDCOOLING_SE_903);
+            Componente pruebaComponente2 = new Refrigeracion(Refrigeraciones.IDCOOLING_TF_120MM);
+            Componente pruebaComponente3 = new Refrigeracion(Refrigeraciones.IDCOOLING_TF_120MM);
+            Componente pruebaComponente4 = new Refrigeracion(Refrigeraciones.IDCOOLING_TF_120MM);
+            Componente pruebaComponente5 = new Refrigeracion(Refrigeraciones.BEQUIET_LIGHTWINGS_140MM);
+
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente1);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente2);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente3);
+            this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente4);
+
+            Exception exception = assertThrows(CapacidadSuperadaException.class, ()-> this.tiendaDeComponentes.agregarUnComponenteAlStock(pruebaComponente5));
+
+            assertEquals("No se pueden almacenar más Refrigeraciones. Se alcanzo el limite en el deposito", exception.getMessage());
+        }
     }
 
     @Test
