@@ -97,7 +97,6 @@ public class TiendaDeComponentes {
         }
     }
 
-    //Cambiar después el parametro con un enum?
     public Set<Componente> buscarComponentesPorCategoria(String componente) {
         return this.stock.get(componente);
     }
@@ -130,6 +129,7 @@ public class TiendaDeComponentes {
             return false;
         }
     }
+
     public Boolean crearUnPaquete(LocalDateTime creacionDelPaquete, Set<Componente> componentesAlPaquete){
         return this.paquetes.add(new Paquete(creacionDelPaquete, componentesAlPaquete));
     }
@@ -176,8 +176,8 @@ public class TiendaDeComponentes {
         BigDecimal precioActual = new BigDecimal(componente.getPrecio().toString());
         BigDecimal porcentaje = new BigDecimal(porcentajeDescuento);
 
-        if(porcentaje.intValue() > 0 && porcentaje.intValue() <= 100){
-            BigDecimal descuento = precioActual.subtract(precioActual.multiply(porcentaje).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP));
+        if(porcentaje.intValue() > 0 && porcentaje.intValue() < 100){
+            BigDecimal descuento = precioActual.multiply(porcentaje).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
             BigDecimal precioFinal = precioActual.subtract(descuento);
             componente.setPrecio(precioFinal.doubleValue());
         }else {

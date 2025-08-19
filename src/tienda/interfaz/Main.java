@@ -4,6 +4,7 @@ import tienda.dominio.componentes.*;
 import tienda.dominio.enums.*;
 import tienda.exceptions.CapacidadSuperadaException;
 import tienda.exceptions.ComponenteNoEncontradoException;
+import tienda.exceptions.DescuentoInvalidoException;
 import tienda.exceptions.PrecioInvalidoException;
 import tienda.servicio.TiendaDeComponentes;
 
@@ -115,7 +116,7 @@ public class Main {
                 case 1 -> buscarComponente();
                 case 2 -> eliminarComponente();
                 case 3 -> modificarPrecioComponente();
-                case 4 -> System.out.println("Aplicar descuento");
+                case 4 -> aplicarDescuentoComponente();
             }
         }while (opcionIngresada < 0 || opcionIngresada > OpcionesMenuComponentes.values().length);
 
@@ -200,7 +201,7 @@ public class Main {
 
         if(opcionCategoria > categoriasComponentes.size() || opcionCategoria < 0){
             System.err.println("Ingrese una opcion correcta\n");
-            eliminarComponente();
+            modificarPrecioComponente();
         }
 
         try {
@@ -230,6 +231,7 @@ public class Main {
                     menuComponentes();
                 }
             }while (opcionId != 1 && opcionId != 0);
+
         }catch (ComponenteNoEncontradoException e) {
             System.err.println(e.getMessage() + "\n");
             modificarPrecioComponente();
@@ -238,6 +240,62 @@ public class Main {
             modificarPrecioComponente();
         }catch (ArrayIndexOutOfBoundsException e){
             System.err.println("Ingrese una opcion valida");
+        }
+    }
+
+    private static void aplicarDescuentoComponente(){
+        int opcionCategoria = 0;
+        List <Class<? extends Componente>> categoriasComponentes = mostrarListaCategoriasDeComponentes(opcionCategoria);
+
+        opcionCategoria = TECLADO.nextInt();
+
+        if (opcionCategoria == 0){
+            menuComponentes();
+        }
+
+        if(opcionCategoria > categoriasComponentes.size() || opcionCategoria < 0){
+            System.err.println("Ingrese una opcion correcta\n");
+            aplicarDescuentoComponente();
+        }
+
+        try {
+            int opcionId;
+            String porcentajeDescuento;
+
+            System.out.println("Ingrese el id del componente:");
+            opcionId = TECLADO.nextInt();
+            Componente componente = tiendaDeComponentes.buscarComponente(categoriasComponentes.get(opcionCategoria-1).getSimpleName(), opcionId);
+
+            System.out.println("Ingrese el porcentaje de descuento a aplicar");
+            porcentajeDescuento = TECLADO.next();
+            tiendaDeComponentes.aplicarDescuento(componente, porcentajeDescuento);
+
+            System.out.println("Se aplico el descuento a: " + componente + ".Descuento aplicado: " + porcentajeDescuento + ". Precio actual: " + componente.getPrecio() + "$\n");
+
+            do {
+                System.out.println("Ingrese 1 aplicar otro descuento o 0 para ir al menu de Componentes");
+                opcionId = TECLADO.nextInt();
+
+                if (opcionId == 1){
+                    aplicarDescuentoComponente();
+                }
+
+                if(opcionId == 0){
+                    menuComponentes();
+                }
+            }while (opcionId != 1 && opcionId != 0);
+
+        }catch (ComponenteNoEncontradoException e) {
+            System.err.println(e.getMessage() + "\n");
+            aplicarDescuentoComponente();
+        }catch (DescuentoInvalidoException e){
+            System.err.println(e.getMessage() + " \n");
+            aplicarDescuentoComponente();
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Ingrese una opcion valida");
+        }catch (NumberFormatException e){
+            System.err.println("Debe ingresar un número\n");
+            aplicarDescuentoComponente();
         }
     }
 

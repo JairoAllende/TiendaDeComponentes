@@ -527,21 +527,3 @@ public class TiendaDeComponentesTest {
 
 }
 
-/*
-
-        ✅ 3. Interfaz del sistema
-        Quiero un menú de consola claro que me permita elegir acciones fácilmente
-
-        Cada acción debería pedirme los datos necesarios y confirmar si fue exitosa
-
-        ✅ 4. Extras opcionales (más adelante)
-        No es urgente, pero en el futuro me gustaría:
-
-        Exportar datos a CSV
-
-        Tener control de stock
-
-        Registrar qué empleado creó cada paquete
-
-        Agregar validaciones (por ejemplo, que el precio no sea negativo)
- */
