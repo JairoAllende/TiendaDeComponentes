@@ -16,7 +16,7 @@ public class Main {
     private static final TiendaDeComponentes tiendaDeComponentes = new TiendaDeComponentes();
 
     public static void main(String[] args){
-        //Seguir con el menu para modificar el precio
+        // Crear funcion para la parte repetida des los menus Componentes
         menuPrincipal();
     }
 
@@ -60,6 +60,10 @@ public class Main {
                 componentes.put(indiceOpciones, opcion);
             }
             for (Procesadores opcion : Procesadores.values()) {
+                System.out.println(++indiceOpciones + "- " + opcion.getMODELO());
+                componentes.put(indiceOpciones, opcion);
+            }
+            for (Refrigeraciones opcion : Refrigeraciones.values()) {
                 System.out.println(++indiceOpciones + "- " + opcion.getMODELO());
                 componentes.put(indiceOpciones, opcion);
             }
